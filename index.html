@@ -3,1020 +3,944 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Developer Portfolio</title>
+  <title>Artisan Brew Café</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="/_sdk/element_sdk.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Outfit:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  <script src="/_sdk/data_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&amp;family=Raleway:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { height: 100%; }
-    
     :root {
-      --bg-primary: #0a0a0f;
-      --bg-secondary: #12121a;
-      --text-primary: #f0f0f5;
-      --accent-primary: #6366f1;
-      --accent-secondary: #22d3ee;
+      --color-bg: #1a1512;
+      --color-surface: #2d2520;
+      --color-text: #f5f0eb;
+      --color-primary: #c9a66b;
+      --color-secondary: #8b7355;
     }
-    
+    html, body { height: 100%; margin: 0; }
     body {
-      font-family: 'Outfit', sans-serif;
-      background: var(--bg-primary);
-      color: var(--text-primary);
+      font-family: 'Raleway', sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text);
     }
-    
-    .font-display { font-family: 'Space Grotesk', sans-serif; }
-    
-    /* Animated Background */
-    .bg-pattern {
-      background-image: 
-        radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(34, 211, 238, 0.1) 0%, transparent 40%),
-        radial-gradient(circle at 40% 80%, rgba(99, 102, 241, 0.1) 0%, transparent 40%);
+    .font-display { font-family: 'Playfair Display', serif; }
+    .gradient-overlay {
+      background: linear-gradient(135deg, rgba(26,21,18,0.95) 0%, rgba(26,21,18,0.7) 50%, rgba(26,21,18,0.4) 100%);
     }
-    
-    /* Floating Orbs */
-    .orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(80px);
-      animation: float 20s ease-in-out infinite;
-      pointer-events: none;
-      z-index: 0;
-    }
-    
-    .orb-1 {
-      width: 400px;
-      height: 400px;
-      background: rgba(99, 102, 241, 0.3);
-      top: -100px;
-      left: -100px;
-      animation-delay: 0s;
-    }
-    
-    .orb-2 {
-      width: 300px;
-      height: 300px;
-      background: rgba(34, 211, 238, 0.2);
-      bottom: -50px;
-      right: -50px;
-      animation-delay: -10s;
-    }
-    
-    @keyframes float {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      25% { transform: translate(30px, -30px) scale(1.05); }
-      50% { transform: translate(-20px, 20px) scale(0.95); }
-      75% { transform: translate(20px, 30px) scale(1.02); }
-    }
-    
-    /* Grid Background */
-    .grid-bg {
-      background-image: 
-        linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
-      background-size: 50px 50px;
-    }
-    
-    /* Navigation */
-    .nav-link {
-      position: relative;
-      padding: 0.5rem 1rem;
-      transition: all 0.3s ease;
-    }
-    
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      width: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
-      transition: all 0.3s ease;
-      transform: translateX(-50%);
-    }
-    
-    .nav-link:hover::after,
-    .nav-link.active::after {
-      width: 80%;
-    }
-    
-    .nav-link:hover {
-      color: var(--accent-secondary);
-    }
-    
-    /* Glowing Button */
-    .glow-btn {
-      position: relative;
-      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-      padding: 0.875rem 2rem;
-      border-radius: 9999px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      overflow: hidden;
-    }
-    
-    .glow-btn::before {
-      content: '';
-      position: absolute;
-      inset: -2px;
-      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-      border-radius: 9999px;
-      filter: blur(15px);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      z-index: -1;
-    }
-    
-    .glow-btn:hover::before {
-      opacity: 0.6;
-    }
-    
-    .glow-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 40px -10px rgba(99, 102, 241, 0.5);
-    }
-    
-    /* Section Transitions */
-    .section {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    /* Card Hover Effects */
-    .project-card {
-      background: rgba(18, 18, 26, 0.8);
-      border: 1px solid rgba(99, 102, 241, 0.1);
-      border-radius: 1rem;
-      overflow: hidden;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      backdrop-filter: blur(10px);
-    }
-    
-    .project-card:hover {
-      transform: translateY(-8px) scale(1.02);
-      border-color: rgba(99, 102, 241, 0.3);
-      box-shadow: 
-        0 20px 40px -20px rgba(0, 0, 0, 0.5),
-        0 0 60px -30px rgba(99, 102, 241, 0.3);
-    }
-    
-    .project-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
-      transition: left 0.6s ease;
-    }
-    
-    .project-card:hover::before {
-      left: 100%;
-    }
-    
-    /* Skill Bars */
-    .skill-bar {
-      height: 8px;
-      background: rgba(99, 102, 241, 0.1);
-      border-radius: 9999px;
-      overflow: hidden;
-    }
-    
-    .skill-progress {
-      height: 100%;
-      background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
-      border-radius: 9999px;
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .skill-bar.animate .skill-progress {
-      transform: scaleX(1);
-    }
-    
-    /* Profile Image */
-    .profile-container {
-      position: relative;
-      width: 280px;
-      height: 280px;
-    }
-    
-    .profile-ring {
-      position: absolute;
-      inset: -4px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary), var(--accent-primary));
-      animation: spin 8s linear infinite;
-    }
-    
-    .profile-ring-2 {
-      position: absolute;
-      inset: -8px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, transparent, rgba(99, 102, 241, 0.3), transparent);
-      animation: spin 12s linear infinite reverse;
-    }
-    
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-    
-    .profile-image {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      background: var(--bg-secondary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      z-index: 1;
-    }
-    
-    /* Typing Effect */
-    .typing-text::after {
-      content: '|';
-      animation: blink 1s step-end infinite;
-    }
-    
-    @keyframes blink {
-      50% { opacity: 0; }
-    }
-    
-    /* Scroll Indicator */
-    .scroll-indicator {
-      animation: bounce 2s ease-in-out infinite;
-    }
-    
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(10px); }
-    }
-    
-    /* Form Styles */
-    .form-input {
-      background: rgba(18, 18, 26, 0.8);
-      border: 1px solid rgba(99, 102, 241, 0.2);
-      border-radius: 0.75rem;
-      padding: 1rem 1.25rem;
-      color: var(--text-primary);
-      transition: all 0.3s ease;
-      width: 100%;
-    }
-    
-    .form-input:focus {
-      outline: none;
-      border-color: var(--accent-primary);
-      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-    }
-    
-    .form-input::placeholder {
-      color: rgba(240, 240, 245, 0.3);
-    }
-    
-    /* Project Demo Styles */
-    .demo-container {
-      background: rgba(10, 10, 15, 0.9);
-      border-radius: 0.75rem;
-      padding: 1.5rem;
-      min-height: 200px;
-    }
-    
-    /* Calculator */
-    .calc-btn {
-      background: rgba(99, 102, 241, 0.1);
-      border: 1px solid rgba(99, 102, 241, 0.2);
-      border-radius: 0.5rem;
-      padding: 0.75rem;
-      font-size: 1.125rem;
-      font-weight: 500;
-      color: var(--text-primary);
-      transition: all 0.2s ease;
-      cursor: pointer;
-    }
-    
-    .calc-btn:hover {
-      background: rgba(99, 102, 241, 0.2);
-      transform: scale(1.05);
-    }
-    
-    .calc-btn.operator {
-      background: rgba(34, 211, 238, 0.1);
-      border-color: rgba(34, 211, 238, 0.3);
-    }
-    
-    .calc-btn.equals {
-      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-      border: none;
-    }
-    
-    /* Todo App */
-    .todo-item {
-      background: rgba(99, 102, 241, 0.05);
-      border: 1px solid rgba(99, 102, 241, 0.1);
-      border-radius: 0.5rem;
-      padding: 0.75rem 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      transition: all 0.3s ease;
-    }
-    
-    .todo-item.completed {
-      opacity: 0.5;
-      text-decoration: line-through;
-    }
-    
-    .todo-checkbox {
-      width: 20px;
-      height: 20px;
-      border: 2px solid var(--accent-primary);
-      border-radius: 50%;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .todo-checkbox.checked {
-      background: var(--accent-primary);
-    }
-    
-    /* Timer */
-    .timer-display {
-      font-size: 3rem;
-      font-weight: 700;
-      font-family: 'Space Grotesk', monospace;
-      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    .gold-gradient {
+      background: linear-gradient(135deg, #c9a66b 0%, #e8d5b0 50%, #c9a66b 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    
-    .timer-btn {
-      padding: 0.5rem 1.5rem;
-      border-radius: 9999px;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      cursor: pointer;
+    .card-hover {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    
-    /* Smooth Scroll */
-    html {
-      scroll-behavior: smooth;
+    .card-hover:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 50px -12px rgba(201, 166, 107, 0.25);
     }
-    
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
+    .nav-link {
+      position: relative;
+      transition: color 0.3s ease;
     }
-    
-    ::-webkit-scrollbar-track {
-      background: var(--bg-primary);
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--color-primary);
+      transition: width 0.3s ease;
     }
-    
-    ::-webkit-scrollbar-thumb {
-      background: linear-gradient(180deg, var(--accent-primary), var(--accent-secondary));
-      border-radius: 4px;
+    .nav-link:hover::after, .nav-link.active::after {
+      width: 100%;
     }
-    
-    /* Particles */
-    .particle {
-      position: fixed;
-      width: 4px;
-      height: 4px;
-      background: var(--accent-primary);
-      border-radius: 50%;
-      pointer-events: none;
-      opacity: 0.6;
-      animation: particle-float 15s linear infinite;
-    }
-    
-    @keyframes particle-float {
-      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-      10% { opacity: 0.6; }
-      90% { opacity: 0.6; }
-      100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
-    }
-    
-    /* Stagger animations */
-    .stagger-1 { animation-delay: 0.1s; }
-    .stagger-2 { animation-delay: 0.2s; }
-    .stagger-3 { animation-delay: 0.3s; }
-    .stagger-4 { animation-delay: 0.4s; }
-    .stagger-5 { animation-delay: 0.5s; }
-    
-    /* Major Project Placeholder */
-    .major-project-space {
-      background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(34, 211, 238, 0.05));
-      border: 2px dashed rgba(99, 102, 241, 0.3);
-      border-radius: 1rem;
-      padding: 3rem;
-      text-align: center;
+    .btn-primary {
+      background: linear-gradient(135deg, #c9a66b 0%, #b8956a 100%);
       transition: all 0.3s ease;
     }
-    
-    .major-project-space:hover {
-      border-color: var(--accent-primary);
-      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(34, 211, 238, 0.1));
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #d4b87a 0%, #c9a66b 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px -10px rgba(201, 166, 107, 0.5);
     }
+    .menu-item {
+      border-bottom: 1px solid rgba(201, 166, 107, 0.1);
+    }
+    .steam {
+      animation: steam 3s ease-in-out infinite;
+    }
+    @keyframes steam {
+      0%, 100% { opacity: 0.3; transform: translateY(0) scale(1); }
+      50% { opacity: 0.8; transform: translateY(-10px) scale(1.1); }
+    }
+    .fade-in {
+      animation: fadeIn 0.6s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .slide-in {
+      animation: slideIn 0.5s ease-out forwards;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    .input-field {
+      background: rgba(45, 37, 32, 0.8);
+      border: 1px solid rgba(201, 166, 107, 0.3);
+      transition: all 0.3s ease;
+    }
+    .input-field:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(201, 166, 107, 0.1);
+      outline: none;
+    }
+    .toast {
+      animation: toastIn 0.4s ease-out forwards;
+    }
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .modal-backdrop {
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(4px);
+    }
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
   <style>body { box-sizing: border-box; }</style>
-  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
  </head>
- <body class="h-full overflow-auto"><!-- Floating Orbs -->
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div><!-- Particles -->
-  <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
-  <div class="particle" style="left: 25%; animation-delay: -3s;"></div>
-  <div class="particle" style="left: 45%; animation-delay: -6s;"></div>
-  <div class="particle" style="left: 65%; animation-delay: -9s;"></div>
-  <div class="particle" style="left: 85%; animation-delay: -12s;"></div><!-- Main Container -->
-  <div class="relative z-10 min-h-full bg-pattern grid-bg"><!-- Navigation -->
-   <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-opacity-80" style="background: rgba(10, 10, 15, 0.8);">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between"><a href="#home" class="font-display text-xl font-bold"> <span class="bg-gradient-to-r from-indigo-500 to-cyan-400 bg-clip-text text-transparent">&lt;Dev/&gt;</span> </a>
-     <div class="flex items-center gap-2"><a href="#home" class="nav-link active text-sm font-medium" onclick="setActiveNav(this)">Home</a> <a href="#about" class="nav-link text-sm font-medium" onclick="setActiveNav(this)">About</a> <a href="#skills" class="nav-link text-sm font-medium" onclick="setActiveNav(this)">Skills</a> <a href="#projects" class="nav-link text-sm font-medium" onclick="setActiveNav(this)">Projects</a> <a href="#contact" class="nav-link text-sm font-medium" onclick="setActiveNav(this)">Contact</a>
+ <body class="h-full">
+  <div id="app" class="h-full overflow-auto scrollbar-hide"><!-- Navigation -->
+   <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" style="background: transparent;">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+     <div class="flex items-center justify-between"><a href="#home" class="flex items-center gap-3">
+       <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background: var(--color-primary);">
+        <svg class="w-7 h-7" fill="#1a1512" viewbox="0 0 24 24"><path d="M2,21H20V19H2M20,8H18V5H20M20,3H4V13A4,4 0 0,0 8,17H14A4,4 0 0,0 18,13V10H20A2,2 0 0,0 22,8V5C22,3.89 21.1,3 20,3Z" />
+        </svg>
+       </div><span id="nav-cafe-name" class="font-display text-2xl font-semibold" style="color: var(--color-primary);">Artisan Brew</span> </a>
+      <div class="hidden md:flex items-center gap-8"><a href="#home" class="nav-link active" style="color: var(--color-text);">Home</a> <a href="#menu" class="nav-link" style="color: var(--color-text);">Menu</a> <a href="#about" class="nav-link" style="color: var(--color-text);">About</a> <a href="#gallery" class="nav-link" style="color: var(--color-text);">Gallery</a> <a href="#contact" class="nav-link" style="color: var(--color-text);">Contact</a>
+      </div>
+      <div class="flex items-center gap-4"><button id="cart-btn" class="relative p-2 rounded-full transition-colors" style="background: var(--color-surface);">
+        <svg class="w-6 h-6" fill="var(--color-primary)" viewbox="0 0 24 24"><path d="M17,18A2,2 0 0,1 19,20A2,2 0 0,1 17,22C15.89,22 15,21.1 15,20C15,18.89 15.89,18 17,18M1,2H4.27L5.21,4H20A1,1 0 0,1 21,5C21,5.17 20.95,5.34 20.88,5.5L17.3,11.97C16.96,12.58 16.3,13 15.55,13H8.1L7.2,14.63L7.17,14.75A0.25,0.25 0 0,0 7.42,15H19V17H7C5.89,17 5,16.1 5,15C5,14.65 5.09,14.32 5.24,14.04L6.6,11.59L3,4H1V2M7,18A2,2 0 0,1 9,20A2,2 0 0,1 7,22C5.89,22 5,21.1 5,20C5,18.89 5.89,18 7,18M16,11L18.78,6H6.14L8.5,11H16Z" />
+        </svg><span id="cart-count" class="absolute -top-1 -right-1 w-5 h-5 rounded-full text-xs font-bold flex items-center justify-center" style="background: var(--color-primary); color: var(--color-bg);">0</span> </button> <button id="login-btn" class="btn-primary px-5 py-2 rounded-full font-medium text-sm" style="color: var(--color-bg);"> Sign In </button> <button id="mobile-menu-btn" class="md:hidden p-2">
+        <svg class="w-6 h-6" fill="var(--color-text)" viewbox="0 0 24 24"><path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+        </svg></button>
+      </div>
      </div>
     </div>
-   </nav><!-- Hero Section -->
-   <section id="home" class="min-h-screen flex items-center justify-center px-6 pt-20 pb-10">
-    <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-     <div class="section visible space-y-6">
-      <p class="text-cyan-400 font-medium tracking-wider uppercase text-sm stagger-1" style="animation: fadeInUp 0.8s ease forwards;">Hello, I'm</p>
-      <h1 id="hero-name" class="font-display text-5xl lg:text-6xl font-bold leading-tight stagger-2"><span class="bg-gradient-to-r from-white via-indigo-200 to-cyan-200 bg-clip-text text-transparent">Sarah Mitchell</span></h1>
-      <h2 id="hero-title" class="font-display text-2xl lg:text-3xl text-indigo-300 stagger-3"><span class="typing-text">Full Stack Developer</span></h2>
-      <p class="text-gray-400 text-lg leading-relaxed max-w-lg stagger-4">Crafting digital experiences with clean code and creative design. Passionate about building responsive, user-friendly applications.</p>
-      <div class="flex flex-wrap gap-4 pt-4 stagger-5"><a href="#projects" class="glow-btn text-white">View My Work</a> <a href="#contact" class="border border-indigo-500/50 px-6 py-3 rounded-full font-semibold hover:bg-indigo-500/10 transition-all">Contact Me</a>
+   </nav><!-- Mobile Menu -->
+   <div id="mobile-menu" class="fixed inset-0 z-40 hidden" style="background: var(--color-bg);">
+    <div class="flex flex-col items-center justify-center h-full gap-8"><a href="#home" class="text-2xl font-display mobile-nav-link" style="color: var(--color-primary);">Home</a> <a href="#menu" class="text-2xl font-display mobile-nav-link" style="color: var(--color-text);">Menu</a> <a href="#about" class="text-2xl font-display mobile-nav-link" style="color: var(--color-text);">About</a> <a href="#gallery" class="text-2xl font-display mobile-nav-link" style="color: var(--color-text);">Gallery</a> <a href="#contact" class="text-2xl font-display mobile-nav-link" style="color: var(--color-text);">Contact</a> <button id="mobile-menu-close" class="mt-8 p-3 rounded-full" style="background: var(--color-surface);">
+      <svg class="w-6 h-6" fill="var(--color-text)" viewbox="0 0 24 24"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+      </svg></button>
+    </div>
+   </div><!-- Hero Section -->
+   <section id="home" class="relative min-h-screen flex items-center">
+    <div class="absolute inset-0">
+     <div class="w-full h-full" style="background: linear-gradient(135deg, #2d2520 0%, #1a1512 50%, #0d0a08 100%);"></div>
+     <div class="absolute inset-0 gradient-overlay"></div><!-- Coffee Bean Pattern -->
+     <div class="absolute inset-0 opacity-5">
+      <svg class="w-full h-full" viewbox="0 0 100 100" preserveaspectratio="none"><pattern id="beans" x="0" y="0" width="20" height="20" patternunits="userSpaceOnUse">
+        <ellipse cx="10" cy="10" rx="4" ry="6" fill="#c9a66b" transform="rotate(30 10 10)" />
+       </pattern> <rect width="100%" height="100%" fill="url(#beans)" />
+      </svg>
+     </div>
+    </div>
+    <div class="relative z-10 max-w-7xl mx-auto px-6 py-32 grid lg:grid-cols-2 gap-12 items-center">
+     <div class="fade-in">
+      <p class="text-sm tracking-[0.3em] uppercase mb-4" style="color: var(--color-primary);">Welcome to</p>
+      <h1 id="hero-title" class="font-display text-5xl md:text-7xl font-bold mb-6 gold-gradient">Artisan Brew Café</h1>
+      <p id="hero-tagline" class="text-xl md:text-2xl mb-8 leading-relaxed" style="color: var(--color-secondary);">Where every cup tells a story of passion, craftsmanship, and the finest beans from around the world.</p>
+      <div class="flex flex-wrap gap-4"><a href="#menu" class="btn-primary px-8 py-4 rounded-full font-semibold text-lg" style="color: var(--color-bg);">Explore Menu</a> <a href="#reservation" class="px-8 py-4 rounded-full font-semibold text-lg border-2 transition-all hover:bg-opacity-10" style="border-color: var(--color-primary); color: var(--color-primary);">Reserve Table</a>
       </div>
-     </div><!-- Profile Image -->
-     <div class="flex justify-center lg:justify-end">
-      <div class="profile-container">
-       <div class="profile-ring-2"></div>
-       <div class="profile-ring"></div>
-       <div class="profile-image"><!-- SVG Illustration of girl with laptop -->
-        <svg viewbox="0 0 200 200" class="w-full h-full"><defs>
-          <lineargradient id="skinGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-           <stop offset="0%" style="stop-color:#fdbcb4" />
-           <stop offset="100%" style="stop-color:#f5a899" />
-          </lineargradient>
-          <lineargradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-           <stop offset="0%" style="stop-color:#2d1b4e" />
-           <stop offset="100%" style="stop-color:#1a0f2e" />
-          </lineargradient>
-          <lineargradient id="shirtGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-           <stop offset="0%" style="stop-color:#6366f1" />
-           <stop offset="100%" style="stop-color:#4f46e5" />
-          </lineargradient>
-          <lineargradient id="laptopGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-           <stop offset="0%" style="stop-color:#374151" />
-           <stop offset="100%" style="stop-color:#1f2937" />
-          </lineargradient>
-          <lineargradient id="screenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-           <stop offset="0%" style="stop-color:#22d3ee" />
-           <stop offset="50%" style="stop-color:#6366f1" />
-           <stop offset="100%" style="stop-color:#a855f7" />
-          </lineargradient>
-         </defs> <!-- Background Circle --> <circle cx="100" cy="100" r="95" fill="url(#screenGrad)" opacity="0.1" /> <!-- Hair Back --> <ellipse cx="100" cy="70" rx="45" ry="40" fill="url(#hairGrad)" /> <path d="M55 70 Q50 120 65 145 L135 145 Q150 120 145 70" fill="url(#hairGrad)" /> <!-- Neck --> <rect x="88" y="105" width="24" height="20" fill="url(#skinGrad)" rx="5" /> <!-- Shirt/Body --> <path d="M60 125 Q55 145 55 175 L145 175 Q145 145 140 125 Q120 115 100 118 Q80 115 60 125" fill="url(#shirtGrad)" /> <!-- Face --> <ellipse cx="100" cy="75" rx="35" ry="38" fill="url(#skinGrad)" /> <!-- Hair Front --> <path d="M65 55 Q70 35 100 32 Q130 35 135 55 Q130 50 100 48 Q70 50 65 55" fill="url(#hairGrad)" /> <path d="M65 55 Q60 70 68 85" stroke="url(#hairGrad)" stroke-width="8" fill="none" stroke-linecap="round" /> <!-- Eyes --> <ellipse cx="85" cy="75" rx="6" ry="4" fill="#1f2937" /> <ellipse cx="115" cy="75" rx="6" ry="4" fill="#1f2937" /> <circle cx="86" cy="74" r="2" fill="white" opacity="0.8" /> <circle cx="116" cy="74" r="2" fill="white" opacity="0.8" /> <!-- Eyebrows --> <path d="M76 68 Q85 65 92 68" stroke="#2d1b4e" stroke-width="2" fill="none" stroke-linecap="round" /> <path d="M108 68 Q115 65 124 68" stroke="#2d1b4e" stroke-width="2" fill="none" stroke-linecap="round" /> <!-- Nose --> <path d="M100 78 Q102 85 100 88" stroke="#e5a090" stroke-width="2" fill="none" stroke-linecap="round" /> <!-- Smile --> <path d="M90 95 Q100 103 110 95" stroke="#d97878" stroke-width="2.5" fill="none" stroke-linecap="round" /> <!-- Blush --> <ellipse cx="78" cy="88" rx="6" ry="3" fill="#ffb3b3" opacity="0.4" /> <ellipse cx="122" cy="88" rx="6" ry="3" fill="#ffb3b3" opacity="0.4" /> <!-- Laptop --> <rect x="50" y="150" width="100" height="8" fill="url(#laptopGrad)" rx="2" /> <rect x="60" y="115" width="80" height="50" fill="url(#laptopGrad)" rx="3" transform="rotate(-5 100 140)" /> <rect x="65" y="120" width="70" height="40" fill="url(#screenGrad)" rx="2" transform="rotate(-5 100 140)" opacity="0.9" /> <!-- Code on screen --> <g transform="rotate(-5 100 140)">
-          <rect x="70" y="125" width="25" height="3" fill="white" opacity="0.7" rx="1" />
-          <rect x="70" y="131" width="40" height="3" fill="#22d3ee" opacity="0.8" rx="1" />
-          <rect x="70" y="137" width="30" height="3" fill="#a855f7" opacity="0.8" rx="1" />
-          <rect x="70" y="143" width="45" height="3" fill="white" opacity="0.5" rx="1" />
-          <rect x="70" y="149" width="20" height="3" fill="#22d3ee" opacity="0.6" rx="1" />
-         </g> <!-- Arms --> <path d="M60 130 Q45 145 55 160" stroke="url(#skinGrad)" stroke-width="12" fill="none" stroke-linecap="round" /> <path d="M140 130 Q155 145 145 160" stroke="url(#skinGrad)" stroke-width="12" fill="none" stroke-linecap="round" /> <!-- Hands on laptop --> <ellipse cx="65" cy="158" rx="10" ry="6" fill="url(#skinGrad)" /> <ellipse cx="135" cy="158" rx="10" ry="6" fill="url(#skinGrad)" />
+      <div class="flex items-center gap-8 mt-12">
+       <div class="text-center">
+        <p class="font-display text-3xl font-bold" style="color: var(--color-primary);">15+</p>
+        <p class="text-sm" style="color: var(--color-secondary);">Years Experience</p>
+       </div>
+       <div class="w-px h-12" style="background: var(--color-secondary);"></div>
+       <div class="text-center">
+        <p class="font-display text-3xl font-bold" style="color: var(--color-primary);">50+</p>
+        <p class="text-sm" style="color: var(--color-secondary);">Coffee Varieties</p>
+       </div>
+       <div class="w-px h-12" style="background: var(--color-secondary);"></div>
+       <div class="text-center">
+        <p class="font-display text-3xl font-bold" style="color: var(--color-primary);">10K+</p>
+        <p class="text-sm" style="color: var(--color-secondary);">Happy Customers</p>
+       </div>
+      </div>
+     </div>
+     <div class="relative flex justify-center fade-in" style="animation-delay: 0.3s;"><!-- Decorative Coffee Cup SVG -->
+      <div class="relative">
+       <svg class="w-72 h-72 md:w-96 md:h-96" viewbox="0 0 200 200"><!-- Cup Shadow --> <ellipse cx="100" cy="180" rx="60" ry="10" fill="rgba(0,0,0,0.3)" /> <!-- Saucer --> <ellipse cx="100" cy="165" rx="70" ry="15" fill="#8b7355" /> <ellipse cx="100" cy="162" rx="65" ry="12" fill="#a08060" /> <!-- Cup Body --> <path d="M50 80 L55 150 Q60 165 100 165 Q140 165 145 150 L150 80 Z" fill="#f5f0eb" /> <path d="M55 85 L58 145 Q62 158 100 158 Q138 158 142 145 L145 85 Z" fill="#e8e0d8" /> <!-- Cup Handle --> <path d="M150 95 Q175 95 175 120 Q175 145 150 145" fill="none" stroke="#f5f0eb" stroke-width="12" stroke-linecap="round" /> <path d="M150 100 Q168 100 168 120 Q168 140 150 140" fill="none" stroke="#e8e0d8" stroke-width="6" stroke-linecap="round" /> <!-- Coffee --> <ellipse cx="100" cy="88" rx="42" ry="8" fill="#3d2817" /> <ellipse cx="100" cy="86" rx="38" ry="6" fill="#5c3d2e" /> <!-- Steam --> <g class="steam">
+         <path d="M80 60 Q75 40 85 30" fill="none" stroke="rgba(245,240,235,0.6)" stroke-width="3" stroke-linecap="round" />
+         <path d="M100 55 Q105 35 95 20" fill="none" stroke="rgba(245,240,235,0.6)" stroke-width="3" stroke-linecap="round" />
+         <path d="M120 60 Q125 40 115 30" fill="none" stroke="rgba(245,240,235,0.6)" stroke-width="3" stroke-linecap="round" />
+        </g> <!-- Latte Art --> <path d="M85 86 Q100 78 115 86" fill="none" stroke="#e8d5b0" stroke-width="2" /> <ellipse cx="100" cy="84" rx="8" ry="4" fill="#e8d5b0" opacity="0.5" />
+       </svg><!-- Floating Beans -->
+       <div class="absolute -top-4 -left-4 w-8 h-12 rounded-full" style="background: var(--color-primary); transform: rotate(-30deg);"></div>
+       <div class="absolute top-20 -right-8 w-6 h-10 rounded-full" style="background: var(--color-secondary); transform: rotate(45deg);"></div>
+       <div class="absolute bottom-20 -left-12 w-5 h-8 rounded-full" style="background: var(--color-primary); opacity: 0.6; transform: rotate(15deg);"></div>
+      </div>
+     </div>
+    </div><!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2"><span class="text-xs tracking-widest" style="color: var(--color-secondary);">SCROLL</span>
+     <div class="w-6 h-10 rounded-full border-2 flex justify-center pt-2" style="border-color: var(--color-secondary);">
+      <div class="w-1.5 h-3 rounded-full animate-bounce" style="background: var(--color-primary);"></div>
+     </div>
+    </div>
+   </section><!-- Menu Section -->
+   <section id="menu" class="py-24" style="background: var(--color-surface);">
+    <div class="max-w-7xl mx-auto px-6">
+     <div class="text-center mb-16">
+      <p class="text-sm tracking-[0.3em] uppercase mb-4" style="color: var(--color-primary);">Our Selection</p>
+      <h2 class="font-display text-4xl md:text-5xl font-bold mb-6" style="color: var(--color-text);">Curated Menu</h2>
+      <p class="max-w-2xl mx-auto" style="color: var(--color-secondary);">From signature espressos to artisanal pastries, discover flavors that awaken your senses.</p>
+     </div><!-- Menu Categories -->
+     <div class="flex flex-wrap justify-center gap-4 mb-12"><button class="menu-category-btn active px-6 py-3 rounded-full font-medium transition-all" data-category="coffee" style="background: var(--color-primary); color: var(--color-bg);">Coffee</button> <button class="menu-category-btn px-6 py-3 rounded-full font-medium transition-all" data-category="specialty" style="background: transparent; border: 1px solid var(--color-primary); color: var(--color-primary);">Specialty</button> <button class="menu-category-btn px-6 py-3 rounded-full font-medium transition-all" data-category="pastries" style="background: transparent; border: 1px solid var(--color-primary); color: var(--color-primary);">Pastries</button> <button class="menu-category-btn px-6 py-3 rounded-full font-medium transition-all" data-category="breakfast" style="background: transparent; border: 1px solid var(--color-primary); color: var(--color-primary);">Breakfast</button>
+     </div><!-- Menu Grid -->
+     <div id="menu-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"><!-- Menu items will be populated by JS -->
+     </div>
+    </div>
+   </section><!-- About Section -->
+   <section id="about" class="py-24" style="background: var(--color-bg);">
+    <div class="max-w-7xl mx-auto px-6">
+     <div class="grid lg:grid-cols-2 gap-16 items-center">
+      <div class="relative"><!-- About Image Placeholder with Coffee Theme -->
+       <div class="relative rounded-2xl overflow-hidden" style="background: linear-gradient(135deg, #3d2817 0%, #5c3d2e 100%); aspect-ratio: 4/5;">
+        <div class="absolute inset-0 flex items-center justify-center">
+         <svg class="w-48 h-48 opacity-20" viewbox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="#c9a66b" stroke-width="2" /> <path d="M30 45 Q50 20 70 45 Q50 70 30 45" fill="#c9a66b" opacity="0.3" /> <text x="50" y="55" text-anchor="middle" fill="#c9a66b" font-size="12" font-family="serif">
+           Est. 2009
+          </text>
+         </svg>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 p-8" style="background: linear-gradient(transparent, rgba(26,21,18,0.9));">
+         <p class="font-display text-2xl" style="color: var(--color-primary);">"Coffee is our craft"</p>
+        </div>
+       </div><!-- Floating Stats Card -->
+       <div class="absolute -bottom-8 -right-8 p-6 rounded-2xl shadow-2xl" style="background: var(--color-primary);">
+        <p class="font-display text-4xl font-bold" style="color: var(--color-bg);">15</p>
+        <p class="text-sm font-medium" style="color: var(--color-bg);">Years of Excellence</p>
+       </div>
+      </div>
+      <div>
+       <p class="text-sm tracking-[0.3em] uppercase mb-4" style="color: var(--color-primary);">Our Story</p>
+       <h2 id="about-title" class="font-display text-4xl md:text-5xl font-bold mb-6" style="color: var(--color-text);">Crafting Moments Since 2009</h2>
+       <p class="text-lg mb-6 leading-relaxed" style="color: var(--color-secondary);">What started as a small corner café has grown into a beloved destination for coffee enthusiasts. Our passion lies in sourcing the finest beans and crafting each cup with precision and love.</p>
+       <p class="mb-8 leading-relaxed" style="color: var(--color-secondary);">Every morning, our master baristas roast fresh batches of single-origin beans, ensuring that each sip delivers an exceptional experience. We believe great coffee brings people together.</p>
+       <div class="grid grid-cols-2 gap-6 mb-8">
+        <div class="p-4 rounded-xl" style="background: var(--color-surface);">
+         <svg class="w-10 h-10 mb-3" fill="var(--color-primary)" viewbox="0 0 24 24"><path d="M12,3L2,12H5V20H19V12H22L12,3M12,8.75A2.25,2.25 0 0,1 14.25,11A2.25,2.25 0 0,1 12,13.25A2.25,2.25 0 0,1 9.75,11A2.25,2.25 0 0,1 12,8.75M12,15C13.5,15 16.5,15.75 16.5,17.25V18H7.5V17.25C7.5,15.75 10.5,15 12,15Z" />
+         </svg>
+         <h4 class="font-display font-semibold mb-1" style="color: var(--color-text);">Expert Baristas</h4>
+         <p class="text-sm" style="color: var(--color-secondary);">Award-winning team</p>
+        </div>
+        <div class="p-4 rounded-xl" style="background: var(--color-surface);">
+         <svg class="w-10 h-10 mb-3" fill="var(--color-primary)" viewbox="0 0 24 24"><path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6M12,8A4,4 0 0,0 8,12A4,4 0 0,0 12,16A4,4 0 0,0 16,12A4,4 0 0,0 12,8Z" />
+         </svg>
+         <h4 class="font-display font-semibold mb-1" style="color: var(--color-text);">Organic Beans</h4>
+         <p class="text-sm" style="color: var(--color-secondary);">Sustainably sourced</p>
+        </div>
+       </div><a href="#contact" class="btn-primary inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold" style="color: var(--color-bg);"> Learn More 
+        <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" />
+        </svg></a>
+      </div>
+     </div>
+    </div>
+   </section><!-- Gallery Section -->
+   <section id="gallery" class="py-24" style="background: var(--color-surface);">
+    <div class="max-w-7xl mx-auto px-6">
+     <div class="text-center mb-16">
+      <p class="text-sm tracking-[0.3em] uppercase mb-4" style="color: var(--color-primary);">Visual Journey</p>
+      <h2 class="font-display text-4xl md:text-5xl font-bold mb-6" style="color: var(--color-text);">Our Gallery</h2>
+      <p class="max-w-2xl mx-auto" style="color: var(--color-secondary);">Glimpses of our cozy space, artful creations, and the moments that make us special.</p>
+     </div>
+     <div class="grid grid-cols-2 md:grid-cols-4 gap-4"><!-- Gallery Items with SVG Placeholders -->
+      <div class="col-span-2 row-span-2 rounded-2xl overflow-hidden card-hover" style="background: linear-gradient(135deg, #3d2817 0%, #5c3d2e 100%); aspect-ratio: 1;">
+       <div class="w-full h-full flex items-center justify-center p-8">
+        <svg class="w-32 h-32" viewbox="0 0 100 100"><rect x="10" y="30" width="80" height="50" rx="5" fill="#c9a66b" opacity="0.3" /> <rect x="20" y="40" width="60" height="30" rx="3" fill="#c9a66b" opacity="0.5" /> <circle cx="50" cy="55" r="10" fill="#c9a66b" /> <text x="50" y="90" text-anchor="middle" fill="#c9a66b" font-size="8">
+          Interior
+         </text>
+        </svg>
+       </div>
+      </div>
+      <div class="rounded-2xl overflow-hidden card-hover" style="background: linear-gradient(135deg, #5c3d2e 0%, #3d2817 100%); aspect-ratio: 1;">
+       <div class="w-full h-full flex items-center justify-center p-4">
+        <svg class="w-16 h-16" viewbox="0 0 50 50"><circle cx="25" cy="25" r="20" fill="#c9a66b" opacity="0.3" /> <path d="M15 25 Q25 15 35 25 Q25 35 15 25" fill="#c9a66b" />
+        </svg>
+       </div>
+      </div>
+      <div class="rounded-2xl overflow-hidden card-hover" style="background: linear-gradient(135deg, #8b7355 0%, #5c3d2e 100%); aspect-ratio: 1;">
+       <div class="w-full h-full flex items-center justify-center p-4">
+        <svg class="w-16 h-16" viewbox="0 0 50 50"><rect x="10" y="15" width="30" height="25" rx="3" fill="#c9a66b" opacity="0.5" /> <circle cx="25" cy="27" r="8" fill="#c9a66b" />
+        </svg>
+       </div>
+      </div>
+      <div class="rounded-2xl overflow-hidden card-hover" style="background: linear-gradient(135deg, #2d2520 0%, #5c3d2e 100%); aspect-ratio: 1;">
+       <div class="w-full h-full flex items-center justify-center p-4">
+        <svg class="w-16 h-16" viewbox="0 0 50 50"><ellipse cx="25" cy="35" rx="15" ry="8" fill="#c9a66b" opacity="0.3" /> <path d="M15 20 L17 32 Q25 38 33 32 L35 20 Z" fill="#c9a66b" opacity="0.6" />
+        </svg>
+       </div>
+      </div>
+      <div class="rounded-2xl overflow-hidden card-hover" style="background: linear-gradient(135deg, #c9a66b 0%, #8b7355 100%); aspect-ratio: 1;">
+       <div class="w-full h-full flex items-center justify-center p-4">
+        <svg class="w-16 h-16" viewbox="0 0 50 50"><circle cx="25" cy="25" r="18" fill="#1a1512" opacity="0.3" /> <path d="M20 25 Q25 18 30 25 Q25 32 20 25" fill="#1a1512" />
         </svg>
        </div>
       </div>
      </div>
-    </div><!-- Scroll Indicator -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 scroll-indicator">
-     <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-     </svg>
     </div>
-   </section><!-- About Section -->
-   <section id="about" class="py-20 px-6">
-    <div class="max-w-6xl mx-auto">
-     <div class="section space-y-12">
-      <div class="text-center space-y-4">
-       <p class="text-cyan-400 font-medium tracking-wider uppercase text-sm">Get To Know</p>
-       <h2 class="font-display text-4xl font-bold">About Me</h2>
-      </div>
-      <div class="grid md:grid-cols-3 gap-6">
-       <div class="project-card relative p-6 text-center space-y-3">
-        <div class="w-12 h-12 mx-auto rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-500 flex items-center justify-center">
-         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-         </svg>
-        </div>
-        <h3 class="font-display font-semibold text-lg">Experience</h3>
-        <p class="text-gray-400 text-sm">3+ Years Working</p>
-       </div>
-       <div class="project-card relative p-6 text-center space-y-3">
-        <div class="w-12 h-12 mx-auto rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-500 flex items-center justify-center">
-         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-         </svg>
-        </div>
-        <h3 class="font-display font-semibold text-lg">Clients</h3>
-        <p class="text-gray-400 text-sm">50+ Satisfied</p>
-       </div>
-       <div class="project-card relative p-6 text-center space-y-3">
-        <div class="w-12 h-12 mx-auto rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-500 flex items-center justify-center">
-         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-         </svg>
-        </div>
-        <h3 class="font-display font-semibold text-lg">Projects</h3>
-        <p class="text-gray-400 text-sm">80+ Completed</p>
-       </div>
-      </div>
-      <div class="max-w-3xl mx-auto text-center space-y-6">
-       <p id="about-text" class="text-gray-300 text-lg leading-relaxed">I'm a passionate developer with expertise in creating beautiful, functional web applications. My journey started with curiosity about how websites work, and it evolved into a deep love for coding and problem-solving. I specialize in frontend technologies while continuously expanding my backend skills to become a well-rounded full-stack developer.</p><a href="#contact" class="glow-btn inline-block text-white">Let's Talk</a>
-      </div>
-     </div>
-    </div>
-   </section><!-- Skills Section -->
-   <section id="skills" class="py-20 px-6">
-    <div class="max-w-6xl mx-auto">
-     <div class="section space-y-12">
-      <div class="text-center space-y-4">
-       <p class="text-cyan-400 font-medium tracking-wider uppercase text-sm">Technical Expertise</p>
-       <h2 class="font-display text-4xl font-bold">My Skills</h2>
-      </div>
-      <div class="grid md:grid-cols-2 gap-8"><!-- HTML -->
-       <div class="project-card relative p-6 space-y-4">
-        <div class="flex items-center justify-between">
-         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-lg bg-orange-500/20 flex items-center justify-center">
-           <svg class="w-6 h-6 text-orange-400" viewbox="0 0 24 24" fill="currentColor"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z" />
-           </svg>
-          </div>
-          <div>
-           <h3 class="font-display font-semibold">HTML5</h3>
-           <p class="text-gray-400 text-sm">Expert Level</p>
-          </div>
-         </div><span class="text-cyan-400 font-semibold">95%</span>
-        </div>
-        <div class="skill-bar">
-         <div class="skill-progress" style="--progress: 0.95"></div>
-        </div>
-       </div><!-- CSS -->
-       <div class="project-card relative p-6 space-y-4">
-        <div class="flex items-center justify-between">
-         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
-           <svg class="w-6 h-6 text-blue-400" viewbox="0 0 24 24" fill="currentColor"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.29 3.855L12 19.288l5.373-1.53L18.59 4.414z" />
-           </svg>
-          </div>
-          <div>
-           <h3 class="font-display font-semibold">CSS3</h3>
-           <p class="text-gray-400 text-sm">Expert Level</p>
-          </div>
-         </div><span class="text-cyan-400 font-semibold">92%</span>
-        </div>
-        <div class="skill-bar">
-         <div class="skill-progress" style="--progress: 0.92"></div>
-        </div>
-       </div><!-- JavaScript -->
-       <div class="project-card relative p-6 space-y-4">
-        <div class="flex items-center justify-between">
-         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-lg bg-yellow-500/20 flex items-center justify-center">
-           <svg class="w-6 h-6 text-yellow-400" viewbox="0 0 24 24" fill="currentColor"><path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z" />
-           </svg>
-          </div>
-          <div>
-           <h3 class="font-display font-semibold">JavaScript</h3>
-           <p class="text-gray-400 text-sm">Advanced Level</p>
-          </div>
-         </div><span class="text-cyan-400 font-semibold">88%</span>
-        </div>
-        <div class="skill-bar">
-         <div class="skill-progress" style="--progress: 0.88"></div>
-        </div>
-       </div><!-- C Language -->
-       <div class="project-card relative p-6 space-y-4">
-        <div class="flex items-center justify-between">
-         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
-           <svg class="w-6 h-6 text-purple-400" viewbox="0 0 24 24" fill="currentColor"><path d="M16.5.132A2.54 2.54 0 0014.012 0H4.002A2.003 2.003 0 002 2.002v19.996A2.003 2.003 0 004.002 24h15.996A2.003 2.003 0 0022 21.998V6.495a2.54 2.54 0 00-.744-1.798L16.5.132zM12 18.742c-3.72 0-6.742-3.022-6.742-6.742S8.28 5.258 12 5.258c1.49 0 2.866.486 3.983 1.307l-1.656 2.28A3.691 3.691 0 0012 8.258a3.742 3.742 0 000 7.484 3.69 3.69 0 002.327-.823l1.656 2.28A6.705 6.705 0 0112 18.742z" />
-           </svg>
-          </div>
-          <div>
-           <h3 class="font-display font-semibold">C Language</h3>
-           <p class="text-gray-400 text-sm">Advanced Level</p>
-          </div>
-         </div><span class="text-cyan-400 font-semibold">85%</span>
-        </div>
-        <div class="skill-bar">
-         <div class="skill-progress" style="--progress: 0.85"></div>
-        </div>
-       </div>
-      </div>
-     </div>
-    </div>
-   </section><!-- Projects Section -->
-   <section id="projects" class="py-20 px-6">
-    <div class="max-w-6xl mx-auto">
-     <div class="section space-y-12">
-      <div class="text-center space-y-4">
-       <p class="text-cyan-400 font-medium tracking-wider uppercase text-sm">Recent Work</p>
-       <h2 class="font-display text-4xl font-bold">My Projects</h2>
-      </div><!-- Minor Projects - Working -->
-      <div class="grid md:grid-cols-3 gap-6"><!-- Calculator -->
-       <div class="project-card relative overflow-hidden">
-        <div class="p-4 border-b border-indigo-500/20">
-         <h3 class="font-display font-semibold text-lg">Calculator</h3>
-         <p class="text-gray-400 text-sm">JavaScript • CSS</p>
-        </div>
-        <div class="p-4">
-         <div class="demo-container"><input type="text" id="calc-display" class="w-full bg-transparent text-right text-2xl font-mono text-cyan-400 mb-4 outline-none" value="0" readonly aria-label="Calculator display">
-          <div class="grid grid-cols-4 gap-2"><button class="calc-btn" onclick="calcInput('7')">7</button> <button class="calc-btn" onclick="calcInput('8')">8</button> <button class="calc-btn" onclick="calcInput('9')">9</button> <button class="calc-btn operator" onclick="calcInput('/')">÷</button> <button class="calc-btn" onclick="calcInput('4')">4</button> <button class="calc-btn" onclick="calcInput('5')">5</button> <button class="calc-btn" onclick="calcInput('6')">6</button> <button class="calc-btn operator" onclick="calcInput('*')">×</button> <button class="calc-btn" onclick="calcInput('1')">1</button> <button class="calc-btn" onclick="calcInput('2')">2</button> <button class="calc-btn" onclick="calcInput('3')">3</button> <button class="calc-btn operator" onclick="calcInput('-')">−</button> <button class="calc-btn" onclick="calcClear()">C</button> <button class="calc-btn" onclick="calcInput('0')">0</button> <button class="calc-btn equals" onclick="calcEquals()">=</button> <button class="calc-btn operator" onclick="calcInput('+')">+</button>
-          </div>
-         </div>
-        </div>
-       </div><!-- Todo App -->
-       <div class="project-card relative overflow-hidden">
-        <div class="p-4 border-b border-indigo-500/20">
-         <h3 class="font-display font-semibold text-lg">Todo List</h3>
-         <p class="text-gray-400 text-sm">JavaScript • HTML</p>
-        </div>
-        <div class="p-4">
-         <div class="demo-container">
-          <div class="flex gap-2 mb-4"><input type="text" id="todo-input" class="flex-1 bg-transparent border border-indigo-500/30 rounded-lg px-3 py-2 text-sm outline-none focus:border-cyan-400" placeholder="Add a task..." aria-label="New task input"> <button onclick="addTodo()" class="px-4 py-2 bg-indigo-500 rounded-lg text-sm font-medium hover:bg-indigo-600 transition-colors">Add</button>
-          </div>
-          <div id="todo-list" class="space-y-2 max-h-32 overflow-auto">
-           <div class="todo-item" data-id="1">
-            <div class="todo-checkbox" onclick="toggleTodo(this)"></div><span>Learn JavaScript</span>
-           </div>
-           <div class="todo-item" data-id="2">
-            <div class="todo-checkbox" onclick="toggleTodo(this)"></div><span>Build projects</span>
-           </div>
-          </div>
-         </div>
-        </div>
-       </div><!-- Timer -->
-       <div class="project-card relative overflow-hidden">
-        <div class="p-4 border-b border-indigo-500/20">
-         <h3 class="font-display font-semibold text-lg">Timer</h3>
-         <p class="text-gray-400 text-sm">JavaScript • CSS</p>
-        </div>
-        <div class="p-4">
-         <div class="demo-container text-center">
-          <div class="timer-display mb-4" id="timer-display">
-           00:00
-          </div>
-          <div class="flex justify-center gap-3"><button id="timer-start" onclick="startTimer()" class="timer-btn bg-green-500/20 text-green-400 border border-green-500/30 hover:bg-green-500/30">Start</button> <button onclick="pauseTimer()" class="timer-btn bg-yellow-500/20 text-yellow-400 border border-yellow-500/30 hover:bg-yellow-500/30">Pause</button> <button onclick="resetTimer()" class="timer-btn bg-red-500/20 text-red-400 border border-red-500/30 hover:bg-red-500/30">Reset</button>
-          </div>
-         </div>
-        </div>
-       </div>
-      </div><!-- Major Project Space -->
-      <div class="mt-12">
-       <h3 class="font-display text-2xl font-semibold mb-6 text-center">Major Project</h3>
-       <div class="major-project-space">
-        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-indigo-500/20 flex items-center justify-center">
-         <svg class="w-8 h-8 text-indigo-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-         </svg>
-        </div>
-        <h4 class="font-display text-xl font-semibold text-indigo-300 mb-2">Coming Soon</h4>
-        <p class="text-gray-400 max-w-md mx-auto">A major full-stack project is currently in development. This space is reserved for showcasing an enterprise-level application demonstrating advanced skills in system design and implementation.</p>
-        <div class="flex justify-center gap-2 mt-4 flex-wrap"><span class="px-3 py-1 rounded-full text-xs bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">React</span> <span class="px-3 py-1 rounded-full text-xs bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">Node.js</span> <span class="px-3 py-1 rounded-full text-xs bg-purple-500/20 text-purple-300 border border-purple-500/30">MongoDB</span> <span class="px-3 py-1 rounded-full text-xs bg-green-500/20 text-green-300 border border-green-500/30">AWS</span>
-        </div>
-       </div>
-      </div>
-     </div>
-    </div>
-   </section><!-- Contact Section -->
-   <section id="contact" class="py-20 px-6">
-    <div class="max-w-6xl mx-auto">
-     <div class="section space-y-12">
-      <div class="text-center space-y-4">
-       <p class="text-cyan-400 font-medium tracking-wider uppercase text-sm">Get In Touch</p>
-       <h2 class="font-display text-4xl font-bold">Contact Me</h2>
-      </div>
-      <div class="grid md:grid-cols-2 gap-12"><!-- Contact Info -->
+   </section><!-- Reservation Section -->
+   <section id="reservation" class="py-24" style="background: var(--color-bg);">
+    <div class="max-w-7xl mx-auto px-6">
+     <div class="grid lg:grid-cols-2 gap-16">
+      <div>
+       <p class="text-sm tracking-[0.3em] uppercase mb-4" style="color: var(--color-primary);">Book Your Visit</p>
+       <h2 class="font-display text-4xl md:text-5xl font-bold mb-6" style="color: var(--color-text);">Reserve a Table</h2>
+       <p class="text-lg mb-8" style="color: var(--color-secondary);">Whether it's a business meeting, a date, or catching up with friends, we'll make your visit memorable.</p>
        <div class="space-y-6">
-        <p class="text-gray-300 text-lg">I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.</p>
-        <div class="space-y-4">
-         <div class="flex items-center gap-4">
-          <div class="w-12 h-12 rounded-xl bg-indigo-500/20 flex items-center justify-center">
-           <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-           </svg>
-          </div>
-          <div>
-           <p class="text-gray-400 text-sm">Email</p>
-           <p id="contact-email" class="text-white font-medium">sarah@example.com</p>
-          </div>
+        <div class="flex items-center gap-4">
+         <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background: var(--color-surface);">
+          <svg class="w-6 h-6" fill="var(--color-primary)" viewbox="0 0 24 24"><path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z" />
+          </svg>
          </div>
-         <div class="flex items-center gap-4">
-          <div class="w-12 h-12 rounded-xl bg-cyan-500/20 flex items-center justify-center">
-           <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-           </svg>
-          </div>
-          <div>
-           <p class="text-gray-400 text-sm">Location</p>
-           <p class="text-white font-medium">San Francisco, CA</p>
-          </div>
+         <div>
+          <h4 class="font-semibold" style="color: var(--color-text);">Location</h4>
+          <p style="color: var(--color-secondary);">123 Coffee Lane, Brew District</p>
          </div>
-        </div><!-- Social Links -->
-        <div class="flex gap-3 pt-4"><a href="#" class="w-10 h-10 rounded-lg bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center hover:bg-indigo-500/30 transition-colors" aria-label="GitHub">
-          <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
-          </svg></a> <a href="#" class="w-10 h-10 rounded-lg bg-blue-500/20 border border-blue-500/30 flex items-center justify-center hover:bg-blue-500/30 transition-colors" aria-label="LinkedIn">
-          <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-          </svg></a> <a href="#" class="w-10 h-10 rounded-lg bg-pink-500/20 border border-pink-500/30 flex items-center justify-center hover:bg-pink-500/30 transition-colors" aria-label="Dribbble">
-          <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M12 24C5.385 24 0 18.615 0 12S5.385 0 12 0s12 5.385 12 12-5.385 12-12 12zm10.12-10.358c-.35-.11-3.17-.953-6.384-.438 1.34 3.684 1.887 6.684 1.992 7.308 2.3-1.555 3.936-4.02 4.395-6.87zm-6.115 7.808c-.153-.9-.75-4.032-2.19-7.77l-.066.02c-5.79 2.015-7.86 6.025-8.04 6.4 1.73 1.358 3.92 2.166 6.29 2.166 1.42 0 2.77-.29 4-.814zm-11.62-2.58c.232-.4 3.045-5.055 8.332-6.765.135-.045.27-.084.405-.12-.26-.585-.54-1.167-.832-1.74C7.17 11.775 2.206 11.71 1.756 11.7l-.004.312c0 2.633.998 5.037 2.634 6.855zm-2.42-8.955c.46.008 4.683.026 9.477-1.248-1.698-3.018-3.53-5.558-3.8-5.928-2.868 1.35-5.01 3.99-5.676 7.17zM9.6 2.052c.282.38 2.145 2.914 3.822 6 3.645-1.365 5.19-3.44 5.373-3.702-1.81-1.61-4.19-2.586-6.795-2.586-.825 0-1.63.1-2.4.285zm10.335 3.483c-.218.29-1.935 2.493-5.724 4.04.24.49.47.985.68 1.486.08.18.15.36.22.53 3.41-.43 6.8.26 7.14.33-.02-2.42-.88-4.64-2.31-6.38z" />
-          </svg></a>
         </div>
-       </div><!-- Contact Form -->
-       <form id="contact-form" class="space-y-4" onsubmit="handleContactSubmit(event)">
-        <div><label for="name" class="block text-sm font-medium text-gray-300 mb-2">Your Name</label> <input type="text" id="name" name="name" class="form-input" placeholder="John Doe" required>
+        <div class="flex items-center gap-4">
+         <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background: var(--color-surface);">
+          <svg class="w-6 h-6" fill="var(--color-primary)" viewbox="0 0 24 24"><path d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z" />
+          </svg>
+         </div>
+         <div>
+          <h4 class="font-semibold" style="color: var(--color-text);">Hours</h4>
+          <p style="color: var(--color-secondary);">Mon-Fri: 7AM-9PM | Sat-Sun: 8AM-10PM</p>
+         </div>
         </div>
-        <div><label for="email" class="block text-sm font-medium text-gray-300 mb-2">Your Email</label> <input type="email" id="email" name="email" class="form-input" placeholder="john@example.com" required>
+        <div class="flex items-center gap-4">
+         <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background: var(--color-surface);">
+          <svg class="w-6 h-6" fill="var(--color-primary)" viewbox="0 0 24 24"><path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z" />
+          </svg>
+         </div>
+         <div>
+          <h4 class="font-semibold" style="color: var(--color-text);">Contact</h4>
+          <p style="color: var(--color-secondary);">+1 (555) 123-4567</p>
+         </div>
         </div>
-        <div><label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message</label> <textarea id="message" name="message" rows="5" class="form-input resize-none" placeholder="Your message here..." required></textarea>
-        </div><button type="submit" class="glow-btn w-full text-white"> Send Message </button>
-        <div id="form-success" class="hidden text-center py-3 bg-green-500/20 border border-green-500/30 rounded-xl text-green-400">
-         Message sent successfully! I'll get back to you soon.
+       </div>
+      </div>
+      <div class="p-8 rounded-2xl" style="background: var(--color-surface);">
+       <form id="reservation-form" class="space-y-6">
+        <div class="grid md:grid-cols-2 gap-6">
+         <div><label class="block text-sm font-medium mb-2" style="color: var(--color-text);" for="res-name">Full Name</label> <input type="text" id="res-name" class="input-field w-full px-4 py-3 rounded-lg" style="color: var(--color-text);" placeholder="John Doe" required>
+         </div>
+         <div><label class="block text-sm font-medium mb-2" style="color: var(--color-text);" for="res-email">Email</label> <input type="email" id="res-email" class="input-field w-full px-4 py-3 rounded-lg" style="color: var(--color-text);" placeholder="john@example.com" required>
+         </div>
         </div>
+        <div class="grid md:grid-cols-2 gap-6">
+         <div><label class="block text-sm font-medium mb-2" style="color: var(--color-text);" for="res-phone">Phone</label> <input type="tel" id="res-phone" class="input-field w-full px-4 py-3 rounded-lg" style="color: var(--color-text);" placeholder="+1 (555) 000-0000" required>
+         </div>
+         <div><label class="block text-sm font-medium mb-2" style="color: var(--color-text);" for="res-guests">Guests</label> <select id="res-guests" class="input-field w-full px-4 py-3 rounded-lg" style="color: var(--color-text);" required> <option value="1">1 Person</option> <option value="2" selected>2 People</option> <option value="3">3 People</option> <option value="4">4 People</option> <option value="5">5 People</option> <option value="6">6+ People</option> </select>
+         </div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-6">
+         <div><label class="block text-sm font-medium mb-2" style="color: var(--color-text);" for="res-date">Date</label> <input type="date" id="res-date" class="input-field w-full px-4 py-3 rounded-lg" style="color: var(--color-text);" required>
+         </div>
+         <div><label class="block text-sm font-medium mb-2" style="color: var(--color-text);" for="res-time">Time</label> <select id="res-time" class="input-field w-full px-4 py-3 rounded-lg" style="color: var(--color-text);" required> <option value="08:00">8:00 AM</option> <option value="09:00">9:00 AM</option> <option value="10:00">10:00 AM</option> <option value="11:00">11:00 AM</option> <option value="12:00">12:00 PM</option> <option value="13:00">1:00 PM</option> <option value="14:00">2:00 PM</option> <option value="15:00">3:00 PM</option> <option value="16:00">4:00 PM</option> <option value="17:00">5:00 PM</option> <option value="18:00">6:00 PM</option> <option value="19:00">7:00 PM</option> <option value="20:00">8:00 PM</option> </select>
+         </div>
+        </div>
+        <div><label class="block text-sm font-medium mb-2" style="color: var(--color-text);" for="res-message">Special Requests</label> <textarea id="res-message" class="input-field w-full px-4 py-3 rounded-lg h-24 resize-none" style="color: var(--color-text);" placeholder="Any dietary requirements or special occasions..."></textarea>
+        </div><button type="submit" id="reservation-submit" class="btn-primary w-full py-4 rounded-lg font-semibold text-lg" style="color: var(--color-bg);"> <span id="reservation-btn-text">Reserve Now</span> <span id="reservation-spinner" class="hidden">
+          <svg class="animate-spin inline w-5 h-5 ml-2" fill="none" viewbox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" /> <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+          </svg></span> </button>
        </form>
       </div>
      </div>
     </div>
-   </section><!-- Footer -->
-   <footer class="py-8 px-6 border-t border-indigo-500/10">
-    <div class="max-w-6xl mx-auto text-center">
-     <p class="text-gray-500 text-sm">© 2024 <span class="text-indigo-400">Sarah Mitchell</span>. Crafted with 💜 and lots of ☕</p>
+   </section><!-- Contact Section -->
+   <section id="contact" class="py-24" style="background: var(--color-surface);">
+    <div class="max-w-7xl mx-auto px-6">
+     <div class="text-center mb-16">
+      <p class="text-sm tracking-[0.3em] uppercase mb-4" style="color: var(--color-primary);">Get in Touch</p>
+      <h2 class="font-display text-4xl md:text-5xl font-bold mb-6" style="color: var(--color-text);">Contact Us</h2>
+     </div>
+     <div class="grid md:grid-cols-3 gap-8">
+      <div class="text-center p-8 rounded-2xl card-hover" style="background: var(--color-bg);">
+       <div class="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style="background: var(--color-surface);">
+        <svg class="w-8 h-8" fill="var(--color-primary)" viewbox="0 0 24 24"><path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z" />
+        </svg>
+       </div>
+       <h3 class="font-display text-xl font-semibold mb-2" style="color: var(--color-text);">Visit Us</h3>
+       <p style="color: var(--color-secondary);">123 Coffee Lane<br>
+        Brew District, BC 12345</p>
+      </div>
+      <div class="text-center p-8 rounded-2xl card-hover" style="background: var(--color-bg);">
+       <div class="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style="background: var(--color-surface);">
+        <svg class="w-8 h-8" fill="var(--color-primary)" viewbox="0 0 24 24"><path d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z" />
+        </svg>
+       </div>
+       <h3 class="font-display text-xl font-semibold mb-2" style="color: var(--color-text);">Email Us</h3>
+       <p style="color: var(--color-secondary);">hello@artisanbrew.cafe<br>
+        reservations@artisanbrew.cafe</p>
+      </div>
+      <div class="text-center p-8 rounded-2xl card-hover" style="background: var(--color-bg);">
+       <div class="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style="background: var(--color-surface);">
+        <svg class="w-8 h-8" fill="var(--color-primary)" viewbox="0 0 24 24"><path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z" />
+        </svg>
+       </div>
+       <h3 class="font-display text-xl font-semibold mb-2" style="color: var(--color-text);">Call Us</h3>
+       <p style="color: var(--color-secondary);">+1 (555) 123-4567<br>
+        +1 (555) 987-6543</p>
+      </div>
+     </div>
     </div>
-   </footer>
+   </section><!-- Footer -->
+   <footer class="py-16" style="background: var(--color-bg); border-top: 1px solid rgba(201, 166, 107, 0.1);">
+    <div class="max-w-7xl mx-auto px-6">
+     <div class="grid md:grid-cols-4 gap-12 mb-12">
+      <div class="md:col-span-2">
+       <div class="flex items-center gap-3 mb-6">
+        <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background: var(--color-primary);">
+         <svg class="w-7 h-7" fill="#1a1512" viewbox="0 0 24 24"><path d="M2,21H20V19H2M20,8H18V5H20M20,3H4V13A4,4 0 0,0 8,17H14A4,4 0 0,0 18,13V10H20A2,2 0 0,0 22,8V5C22,3.89 21.1,3 20,3Z" />
+         </svg>
+        </div><span class="font-display text-2xl font-semibold" style="color: var(--color-primary);">Artisan Brew</span>
+       </div>
+       <p class="mb-6 max-w-md" style="color: var(--color-secondary);">Crafting exceptional coffee experiences since 2009. Every cup is a journey through the world's finest beans.</p>
+       <div class="flex gap-4"><a href="#" class="w-10 h-10 rounded-full flex items-center justify-center transition-colors" style="background: var(--color-surface);">
+         <svg class="w-5 h-5" fill="var(--color-primary)" viewbox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96A10 10 0 0 0 22 12.06C22 6.53 17.5 2.04 12 2.04Z" />
+         </svg></a> <a href="#" class="w-10 h-10 rounded-full flex items-center justify-center transition-colors" style="background: var(--color-surface);">
+         <svg class="w-5 h-5" fill="var(--color-primary)" viewbox="0 0 24 24"><path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z" />
+         </svg></a> <a href="#" class="w-10 h-10 rounded-full flex items-center justify-center transition-colors" style="background: var(--color-surface);">
+         <svg class="w-5 h-5" fill="var(--color-primary)" viewbox="0 0 24 24"><path d="M22.46,6C21.69,6.35 20.86,6.58 20,6.69C20.88,6.16 21.56,5.32 21.88,4.31C21.05,4.81 20.13,5.16 19.16,5.36C18.37,4.5 17.26,4 16,4C13.65,4 11.73,5.92 11.73,8.29C11.73,8.63 11.77,8.96 11.84,9.27C8.28,9.09 5.11,7.38 3,4.79C2.63,5.42 2.42,6.16 2.42,6.94C2.42,8.43 3.17,9.75 4.33,10.5C3.62,10.5 2.96,10.3 2.38,10C2.38,10 2.38,10 2.38,10.03C2.38,12.11 3.86,13.85 5.82,14.24C5.46,14.34 5.08,14.39 4.69,14.39C4.42,14.39 4.15,14.36 3.89,14.31C4.43,16 6,17.26 7.89,17.29C6.43,18.45 4.58,19.13 2.56,19.13C2.22,19.13 1.88,19.11 1.54,19.07C3.44,20.29 5.7,21 8.12,21C16,21 20.33,14.46 20.33,8.79C20.33,8.6 20.33,8.42 20.32,8.23C21.16,7.63 21.88,6.87 22.46,6Z" />
+         </svg></a>
+       </div>
+      </div>
+      <div>
+       <h4 class="font-display font-semibold mb-6" style="color: var(--color-text);">Quick Links</h4>
+       <ul class="space-y-3">
+        <li><a href="#menu" class="transition-colors hover:text-opacity-100" style="color: var(--color-secondary);">Our Menu</a></li>
+        <li><a href="#about" class="transition-colors hover:text-opacity-100" style="color: var(--color-secondary);">About Us</a></li>
+        <li><a href="#gallery" class="transition-colors hover:text-opacity-100" style="color: var(--color-secondary);">Gallery</a></li>
+        <li><a href="#reservation" class="transition-colors hover:text-opacity-100" style="color: var(--color-secondary);">Reservations</a></li>
+       </ul>
+      </div>
+      <div>
+       <h4 class="font-display font-semibold mb-6" style="color: var(--color-text);">Opening Hours</h4>
+       <ul class="space-y-3" style="color: var(--color-secondary);">
+        <li>Monday - Friday<br><span style="color: var(--color-primary);">7:00 AM - 9:00 PM</span></li>
+        <li>Saturday - Sunday<br><span style="color: var(--color-primary);">8:00 AM - 10:00 PM</span></li>
+       </ul>
+      </div>
+     </div>
+     <div class="pt-8 text-center" style="border-top: 1px solid rgba(201, 166, 107, 0.1);">
+      <p style="color: var(--color-secondary);">© 2024 Artisan Brew Café. All rights reserved. Crafted with ☕ and love.</p>
+     </div>
+    </div>
+   </footer><!-- Shopping Cart Modal -->
+   <div id="cart-modal" class="fixed inset-0 z-50 hidden">
+    <div class="modal-backdrop absolute inset-0" id="cart-backdrop"></div>
+    <div class="absolute right-0 top-0 bottom-0 w-full max-w-md p-6 overflow-auto" style="background: var(--color-surface);">
+     <div class="flex items-center justify-between mb-8">
+      <h3 class="font-display text-2xl font-bold" style="color: var(--color-text);">Your Cart</h3><button id="cart-close" class="p-2 rounded-full" style="background: var(--color-bg);">
+       <svg class="w-6 h-6" fill="var(--color-text)" viewbox="0 0 24 24"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+       </svg></button>
+     </div>
+     <div id="cart-items" class="space-y-4 mb-8"><!-- Cart items will be populated here -->
+     </div>
+     <div id="cart-empty" class="text-center py-12">
+      <svg class="w-16 h-16 mx-auto mb-4 opacity-50" fill="var(--color-secondary)" viewbox="0 0 24 24"><path d="M17,18A2,2 0 0,1 19,20A2,2 0 0,1 17,22C15.89,22 15,21.1 15,20C15,18.89 15.89,18 17,18M1,2H4.27L5.21,4H20A1,1 0 0,1 21,5C21,5.17 20.95,5.34 20.88,5.5L17.3,11.97C16.96,12.58 16.3,13 15.55,13H8.1L7.2,14.63L7.17,14.75A0.25,0.25 0 0,0 7.42,15H19V17H7C5.89,17 5,16.1 5,15C5,14.65 5.09,14.32 5.24,14.04L6.6,11.59L3,4H1V2M7,18A2,2 0 0,1 9,20A2,2 0 0,1 7,22C5.89,22 5,21.1 5,20C5,18.89 5.89,18 7,18M16,11L18.78,6H6.14L8.5,11H16Z" />
+      </svg>
+      <p style="color: var(--color-secondary);">Your cart is empty</p>
+     </div>
+     <div id="cart-footer" class="hidden pt-6" style="border-top: 1px solid rgba(201, 166, 107, 0.2);">
+      <div class="flex justify-between mb-4"><span class="font-semibold" style="color: var(--color-text);">Total</span> <span id="cart-total" class="font-display text-xl font-bold" style="color: var(--color-primary);">$0.00</span>
+      </div><button id="checkout-btn" class="btn-primary w-full py-4 rounded-lg font-semibold" style="color: var(--color-bg);">Proceed to Checkout</button>
+      <p class="text-xs text-center mt-3" style="color: var(--color-secondary);">Demo - No actual payment processed</p>
+     </div>
+    </div>
+   </div><!-- Login Modal -->
+   <div id="login-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+    <div class="modal-backdrop absolute inset-0" id="login-backdrop"></div>
+    <div class="relative w-full max-w-md p-8 rounded-2xl" style="background: var(--color-surface);"><button id="login-close" class="absolute top-4 right-4 p-2 rounded-full" style="background: var(--color-bg);">
+      <svg class="w-5 h-5" fill="var(--color-text)" viewbox="0 0 24 24"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+      </svg></button>
+     <div class="text-center mb-8">
+      <div class="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style="background: var(--color-primary);">
+       <svg class="w-8 h-8" fill="#1a1512" viewbox="0 0 24 24"><path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" />
+       </svg>
+      </div>
+      <h3 class="font-display text-2xl font-bold" style="color: var(--color-text);">Welcome Back</h3>
+      <p class="text-sm mt-2" style="color: var(--color-secondary);">Sign in to your account</p>
+     </div>
+     <form id="login-form" class="space-y-6">
+      <div><label class="block text-sm font-medium mb-2" style="color: var(--color-text);" for="login-email">Email</label> <input type="email" id="login-email" class="input-field w-full px-4 py-3 rounded-lg" style="color: var(--color-text);" placeholder="your@email.com" required>
+      </div>
+      <div><label class="block text-sm font-medium mb-2" style="color: var(--color-text);" for="login-password">Password</label> <input type="password" id="login-password" class="input-field w-full px-4 py-3 rounded-lg" style="color: var(--color-text);" placeholder="••••••••" required>
+       <p class="text-xs mt-2 text-center" style="color: var(--color-secondary);">Demo: Any credentials work</p>
+      </div><button type="submit" id="login-submit" class="btn-primary w-full py-4 rounded-lg font-semibold" style="color: var(--color-bg);"> Sign In </button>
+     </form>
+     <p class="text-center mt-6" style="color: var(--color-secondary);">Don't have an account? <a href="#" id="show-signup" class="font-medium" style="color: var(--color-primary);">Sign Up</a></p>
+    </div>
+   </div><!-- Toast Notification -->
+   <div id="toast" class="fixed bottom-6 right-6 z-50 hidden">
+    <div class="flex items-center gap-3 px-6 py-4 rounded-xl shadow-2xl" style="background: var(--color-primary);">
+     <svg id="toast-icon" class="w-6 h-6" fill="#1a1512" viewbox="0 0 24 24"><path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+     </svg><span id="toast-message" class="font-medium" style="color: var(--color-bg);">Success!</span>
+    </div>
+   </div>
   </div>
   <script>
-    // Default config
-    const defaultConfig = {
-      name: 'Sarah Mitchell',
-      title: 'Full Stack Developer',
-      about_text: "I'm a passionate developer with expertise in creating beautiful, functional web applications. My journey started with curiosity about how websites work, and it evolved into a deep love for coding and problem-solving. I specialize in frontend technologies while continuously expanding my backend skills to become a well-rounded full-stack developer.",
-      email: 'sarah@example.com',
-      background_color: '#0a0a0f',
-      surface_color: '#12121a',
-      text_color: '#f0f0f5',
-      primary_color: '#6366f1',
-      secondary_color: '#22d3ee'
+    // Menu Data
+    const menuData = {
+      coffee: [
+        { id: 'esp', name: 'Espresso', desc: 'Rich and bold single shot', price: 3.50, icon: '☕' },
+        { id: 'amer', name: 'Americano', desc: 'Espresso with hot water', price: 4.00, icon: '☕' },
+        { id: 'cap', name: 'Cappuccino', desc: 'Espresso, steamed milk, foam', price: 4.50, icon: '☕' },
+        { id: 'latte', name: 'Café Latte', desc: 'Smooth espresso with milk', price: 5.00, icon: '☕' },
+        { id: 'flat', name: 'Flat White', desc: 'Velvety microfoam espresso', price: 4.75, icon: '☕' },
+        { id: 'mocha', name: 'Mocha', desc: 'Chocolate espresso delight', price: 5.50, icon: '☕' }
+      ],
+      specialty: [
+        { id: 'cold', name: 'Cold Brew', desc: '24-hour steeped perfection', price: 5.00, icon: '🧊' },
+        { id: 'aff', name: 'Affogato', desc: 'Espresso over gelato', price: 6.50, icon: '🍨' },
+        { id: 'matcha', name: 'Matcha Latte', desc: 'Ceremonial grade matcha', price: 5.50, icon: '🍵' },
+        { id: 'chai', name: 'Chai Latte', desc: 'Spiced tea with milk', price: 5.00, icon: '🍵' },
+        { id: 'gold', name: 'Golden Latte', desc: 'Turmeric wellness drink', price: 5.50, icon: '✨' },
+        { id: 'rose', name: 'Rose Latte', desc: 'Floral espresso creation', price: 6.00, icon: '🌹' }
+      ],
+      pastries: [
+        { id: 'croi', name: 'Butter Croissant', desc: 'Flaky French classic', price: 4.00, icon: '🥐' },
+        { id: 'pain', name: 'Pain au Chocolat', desc: 'Chocolate-filled pastry', price: 4.50, icon: '🍫' },
+        { id: 'muff', name: 'Blueberry Muffin', desc: 'Fresh-baked daily', price: 3.50, icon: '🫐' },
+        { id: 'cin', name: 'Cinnamon Roll', desc: 'Warm with cream frosting', price: 4.50, icon: '🍩' },
+        { id: 'scone', name: 'Cranberry Scone', desc: 'British tea companion', price: 3.75, icon: '🍪' },
+        { id: 'tart', name: 'Fruit Tart', desc: 'Seasonal fresh fruits', price: 5.50, icon: '🥧' }
+      ],
+      breakfast: [
+        { id: 'avo', name: 'Avocado Toast', desc: 'Sourdough with toppings', price: 9.00, icon: '🥑' },
+        { id: 'egg', name: 'Eggs Benedict', desc: 'Classic hollandaise', price: 12.00, icon: '🍳' },
+        { id: 'acai', name: 'Açaí Bowl', desc: 'Superfood breakfast', price: 11.00, icon: '🫐' },
+        { id: 'gran', name: 'Granola Parfait', desc: 'Yogurt with honey', price: 7.50, icon: '🥣' },
+        { id: 'pan', name: 'Pancake Stack', desc: 'Maple syrup & berries', price: 10.00, icon: '🥞' },
+        { id: 'oat', name: 'Overnight Oats', desc: 'Chia & almond milk', price: 6.50, icon: '🥛' }
+      ]
     };
-    
-    // Initialize Element SDK
+
+    // State
+    let cart = [];
+    let currentCategory = 'coffee';
+    let reservations = [];
+    let isLoggedIn = false;
+    let currentUser = null;
+
+    // Default Config
+    const defaultConfig = {
+      cafe_name: 'Artisan Brew',
+      hero_tagline: 'Where every cup tells a story of passion, craftsmanship, and the finest beans from around the world.',
+      about_title: 'Crafting Moments Since 2009',
+      background_color: '#1a1512',
+      surface_color: '#2d2520',
+      text_color: '#f5f0eb',
+      primary_color: '#c9a66b',
+      secondary_color: '#8b7355',
+      font_family: 'Playfair Display',
+      font_size: 16
+    };
+
+    // Element SDK Initialization
     if (window.elementSdk) {
       window.elementSdk.init({
         defaultConfig,
         onConfigChange: async (config) => {
-          // Update name
-          const heroName = document.getElementById('hero-name');
-          if (heroName) heroName.querySelector('span').textContent = config.name || defaultConfig.name;
+          // Update text content
+          const navCafeName = document.getElementById('nav-cafe-name');
+          if (navCafeName) navCafeName.textContent = config.cafe_name || defaultConfig.cafe_name;
           
-          // Update title
           const heroTitle = document.getElementById('hero-title');
-          if (heroTitle) heroTitle.querySelector('.typing-text').textContent = config.title || defaultConfig.title;
+          if (heroTitle) heroTitle.textContent = (config.cafe_name || defaultConfig.cafe_name) + ' Café';
           
-          // Update about text
-          const aboutText = document.getElementById('about-text');
-          if (aboutText) aboutText.textContent = config.about_text || defaultConfig.about_text;
+          const heroTagline = document.getElementById('hero-tagline');
+          if (heroTagline) heroTagline.textContent = config.hero_tagline || defaultConfig.hero_tagline;
           
-          // Update email
-          const contactEmail = document.getElementById('contact-email');
-          if (contactEmail) contactEmail.textContent = config.email || defaultConfig.email;
+          const aboutTitle = document.getElementById('about-title');
+          if (aboutTitle) aboutTitle.textContent = config.about_title || defaultConfig.about_title;
           
           // Update colors
-          const root = document.documentElement;
-          root.style.setProperty('--bg-primary', config.background_color || defaultConfig.background_color);
-          root.style.setProperty('--bg-secondary', config.surface_color || defaultConfig.surface_color);
-          root.style.setProperty('--text-primary', config.text_color || defaultConfig.text_color);
-          root.style.setProperty('--accent-primary', config.primary_color || defaultConfig.primary_color);
-          root.style.setProperty('--accent-secondary', config.secondary_color || defaultConfig.secondary_color);
+          document.documentElement.style.setProperty('--color-bg', config.background_color || defaultConfig.background_color);
+          document.documentElement.style.setProperty('--color-surface', config.surface_color || defaultConfig.surface_color);
+          document.documentElement.style.setProperty('--color-text', config.text_color || defaultConfig.text_color);
+          document.documentElement.style.setProperty('--color-primary', config.primary_color || defaultConfig.primary_color);
+          document.documentElement.style.setProperty('--color-secondary', config.secondary_color || defaultConfig.secondary_color);
+          
+          // Update font
+          const fontFamily = config.font_family || defaultConfig.font_family;
+          document.querySelectorAll('.font-display').forEach(el => {
+            el.style.fontFamily = `${fontFamily}, serif`;
+          });
+          
+          // Update font size
+          const baseSize = config.font_size || defaultConfig.font_size;
+          document.documentElement.style.fontSize = `${baseSize}px`;
         },
         mapToCapabilities: (config) => ({
           recolorables: [
             {
               get: () => config.background_color || defaultConfig.background_color,
-              set: (value) => window.elementSdk.setConfig({ background_color: value })
+              set: (value) => { config.background_color = value; window.elementSdk.setConfig({ background_color: value }); }
             },
             {
               get: () => config.surface_color || defaultConfig.surface_color,
-              set: (value) => window.elementSdk.setConfig({ surface_color: value })
+              set: (value) => { config.surface_color = value; window.elementSdk.setConfig({ surface_color: value }); }
             },
             {
               get: () => config.text_color || defaultConfig.text_color,
-              set: (value) => window.elementSdk.setConfig({ text_color: value })
+              set: (value) => { config.text_color = value; window.elementSdk.setConfig({ text_color: value }); }
             },
             {
               get: () => config.primary_color || defaultConfig.primary_color,
-              set: (value) => window.elementSdk.setConfig({ primary_color: value })
+              set: (value) => { config.primary_color = value; window.elementSdk.setConfig({ primary_color: value }); }
             },
             {
               get: () => config.secondary_color || defaultConfig.secondary_color,
-              set: (value) => window.elementSdk.setConfig({ secondary_color: value })
+              set: (value) => { config.secondary_color = value; window.elementSdk.setConfig({ secondary_color: value }); }
             }
           ],
           borderables: [],
-          fontEditable: undefined,
-          fontSizeable: undefined
+          fontEditable: {
+            get: () => config.font_family || defaultConfig.font_family,
+            set: (value) => { config.font_family = value; window.elementSdk.setConfig({ font_family: value }); }
+          },
+          fontSizeable: {
+            get: () => config.font_size || defaultConfig.font_size,
+            set: (value) => { config.font_size = value; window.elementSdk.setConfig({ font_size: value }); }
+          }
         }),
         mapToEditPanelValues: (config) => new Map([
-          ['name', config.name || defaultConfig.name],
-          ['title', config.title || defaultConfig.title],
-          ['about_text', config.about_text || defaultConfig.about_text],
-          ['email', config.email || defaultConfig.email]
+          ['cafe_name', config.cafe_name || defaultConfig.cafe_name],
+          ['hero_tagline', config.hero_tagline || defaultConfig.hero_tagline],
+          ['about_title', config.about_title || defaultConfig.about_title]
         ])
       });
     }
-    
-    // Navigation
-    function setActiveNav(el) {
-      document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-      el.classList.add('active');
-    }
-    
-    // Scroll animations
-    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          
-          // Animate skill bars
-          if (entry.target.closest('#skills')) {
-            entry.target.querySelectorAll('.skill-bar').forEach(bar => {
-              bar.classList.add('animate');
-              const progress = bar.querySelector('.skill-progress');
-              const percentage = getComputedStyle(progress).getPropertyValue('--progress');
-              progress.style.transform = `scaleX(${percentage})`;
-            });
-          }
-        }
-      });
-    }, observerOptions);
-    
-    document.querySelectorAll('.section').forEach(section => observer.observe(section));
-    
-    // Calculator
-    let calcValue = '0';
-    let calcOperator = null;
-    let calcPrevValue = null;
-    let calcNewNumber = true;
-    
-    function calcInput(val) {
-      const display = document.getElementById('calc-display');
-      if (calcNewNumber) {
-        calcValue = val;
-        calcNewNumber = false;
-      } else if (['+', '-', '*', '/'].includes(val)) {
-        if (calcPrevValue !== null && calcOperator) {
-          calcEquals();
-        }
-        calcOperator = val;
-        calcPrevValue = calcValue;
-        calcNewNumber = true;
-      } else {
-        calcValue = calcValue === '0' ? val : calcValue + val;
+
+    // Data SDK for Reservations
+    const dataHandler = {
+      onDataChanged(data) {
+        reservations = data;
+        // Update UI if showing reservations
       }
-      display.value = calcValue;
+    };
+
+    if (window.dataSdk) {
+      window.dataSdk.init(dataHandler);
     }
-    
-    function calcEquals() {
-      const display = document.getElementById('calc-display');
-      if (calcPrevValue !== null && calcOperator) {
-        const prev = parseFloat(calcPrevValue);
-        const curr = parseFloat(calcValue);
-        let result;
-        switch (calcOperator) {
-          case '+': result = prev + curr; break;
-          case '-': result = prev - curr; break;
-          case '*': result = prev * curr; break;
-          case '/': result = curr !== 0 ? prev / curr : 'Error'; break;
-        }
-        calcValue = typeof result === 'number' ? String(Math.round(result * 1000000) / 1000000) : result;
-        display.value = calcValue;
-        calcOperator = null;
-        calcPrevValue = null;
-        calcNewNumber = true;
-      }
-    }
-    
-    function calcClear() {
-      calcValue = '0';
-      calcOperator = null;
-      calcPrevValue = null;
-      calcNewNumber = true;
-      document.getElementById('calc-display').value = '0';
-    }
-    
-    // Todo App
-    let todoId = 3;
-    
-    function addTodo() {
-      const input = document.getElementById('todo-input');
-      const text = input.value.trim();
-      if (!text) return;
+
+    // Utility Functions
+    function showToast(message, success = true) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toast-message');
+      const toastIcon = document.getElementById('toast-icon');
       
-      const list = document.getElementById('todo-list');
-      const item = document.createElement('div');
-      item.className = 'todo-item';
-      item.dataset.id = todoId++;
-      item.innerHTML = `
-        <div class="todo-checkbox" onclick="toggleTodo(this)"></div>
-        <span>${text}</span>
-      `;
-      list.appendChild(item);
-      input.value = '';
-    }
-    
-    function toggleTodo(checkbox) {
-      checkbox.classList.toggle('checked');
-      checkbox.closest('.todo-item').classList.toggle('completed');
-      if (checkbox.classList.contains('checked')) {
-        checkbox.innerHTML = '<svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>';
-      } else {
-        checkbox.innerHTML = '';
-      }
-    }
-    
-    // Enter key for todo
-    document.getElementById('todo-input').addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') addTodo();
-    });
-    
-    // Timer
-    let timerInterval = null;
-    let timerSeconds = 0;
-    
-    function updateTimerDisplay() {
-      const minutes = Math.floor(timerSeconds / 60).toString().padStart(2, '0');
-      const seconds = (timerSeconds % 60).toString().padStart(2, '0');
-      document.getElementById('timer-display').textContent = `${minutes}:${seconds}`;
-    }
-    
-    function startTimer() {
-      if (timerInterval) return;
-      timerInterval = setInterval(() => {
-        timerSeconds++;
-        updateTimerDisplay();
-      }, 1000);
-    }
-    
-    function pauseTimer() {
-      clearInterval(timerInterval);
-      timerInterval = null;
-    }
-    
-    function resetTimer() {
-      pauseTimer();
-      timerSeconds = 0;
-      updateTimerDisplay();
-    }
-    
-    // Contact Form
-    function handleContactSubmit(e) {
-      e.preventDefault();
-      const form = document.getElementById('contact-form');
-      const success = document.getElementById('form-success');
+      toastMessage.textContent = message;
+      toastIcon.innerHTML = success 
+        ? '<path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/>'
+        : '<path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/>';
       
-      // Show success message
-      success.classList.remove('hidden');
-      form.reset();
+      toast.classList.remove('hidden');
+      toast.classList.add('toast');
       
-      // Hide after 3 seconds
       setTimeout(() => {
-        success.classList.add('hidden');
+        toast.classList.add('hidden');
       }, 3000);
     }
-    
-    // Smooth scroll for navigation
+
+    function formatPrice(price) {
+      return '$' + price.toFixed(2);
+    }
+
+    // Menu Functions
+    function renderMenu(category) {
+      const grid = document.getElementById('menu-grid');
+      const items = menuData[category];
+      
+      grid.innerHTML = items.map(item => `
+        <div class="menu-item p-6 rounded-2xl card-hover" style="background: var(--color-bg);">
+          <div class="flex items-start justify-between mb-4">
+            <span class="text-4xl">${item.icon}</span>
+            <span class="font-display text-xl font-bold" style="color: var(--color-primary);">${formatPrice(item.price)}</span>
+          </div>
+          <h3 class="font-display text-xl font-semibold mb-2" style="color: var(--color-text);">${item.name}</h3>
+          <p class="text-sm mb-4" style="color: var(--color-secondary);">${item.desc}</p>
+          <button onclick="addToCart('${item.id}', '${category}')" class="btn-primary w-full py-3 rounded-lg font-medium text-sm" style="color: var(--color-bg);">
+            Add to Cart
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function switchCategory(category) {
+      currentCategory = category;
+      renderMenu(category);
+      
+      document.querySelectorAll('.menu-category-btn').forEach(btn => {
+        if (btn.dataset.category === category) {
+          btn.style.background = 'var(--color-primary)';
+          btn.style.color = 'var(--color-bg)';
+          btn.style.border = 'none';
+        } else {
+          btn.style.background = 'transparent';
+          btn.style.color = 'var(--color-primary)';
+          btn.style.border = '1px solid var(--color-primary)';
+        }
+      });
+    }
+
+    // Cart Functions
+    function addToCart(itemId, category) {
+      const item = menuData[category].find(i => i.id === itemId);
+      if (!item) return;
+      
+      const existing = cart.find(c => c.id === itemId);
+      if (existing) {
+        existing.quantity++;
+      } else {
+        cart.push({ ...item, quantity: 1 });
+      }
+      
+      updateCartUI();
+      showToast(`${item.name} added to cart!`);
+    }
+
+    function removeFromCart(itemId) {
+      cart = cart.filter(item => item.id !== itemId);
+      updateCartUI();
+    }
+
+    function updateCartQuantity(itemId, delta) {
+      const item = cart.find(c => c.id === itemId);
+      if (!item) return;
+      
+      item.quantity += delta;
+      if (item.quantity <= 0) {
+        removeFromCart(itemId);
+      } else {
+        updateCartUI();
+      }
+    }
+
+    function updateCartUI() {
+      const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+      document.getElementById('cart-count').textContent = count;
+      
+      const cartItems = document.getElementById('cart-items');
+      const cartEmpty = document.getElementById('cart-empty');
+      const cartFooter = document.getElementById('cart-footer');
+      
+      if (cart.length === 0) {
+        cartEmpty.classList.remove('hidden');
+        cartFooter.classList.add('hidden');
+        cartItems.innerHTML = '';
+      } else {
+        cartEmpty.classList.add('hidden');
+        cartFooter.classList.remove('hidden');
+        
+        const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        document.getElementById('cart-total').textContent = formatPrice(total);
+        
+        cartItems.innerHTML = cart.map(item => `
+          <div class="flex items-center gap-4 p-4 rounded-xl" style="background: var(--color-bg);">
+            <span class="text-3xl">${item.icon}</span>
+            <div class="flex-1">
+              <h4 class="font-semibold" style="color: var(--color-text);">${item.name}</h4>
+              <p class="text-sm" style="color: var(--color-primary);">${formatPrice(item.price)}</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="updateCartQuantity('${item.id}', -1)" class="w-8 h-8 rounded-full flex items-center justify-center" style="background: var(--color-surface);">
+                <svg class="w-4 h-4" fill="var(--color-text)" viewBox="0 0 24 24"><path d="M19,13H5V11H19V13Z"/></svg>
+              </button>
+              <span class="w-8 text-center font-semibold" style="color: var(--color-text);">${item.quantity}</span>
+              <button onclick="updateCartQuantity('${item.id}', 1)" class="w-8 h-8 rounded-full flex items-center justify-center" style="background: var(--color-surface);">
+                <svg class="w-4 h-4" fill="var(--color-text)" viewBox="0 0 24 24"><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/></svg>
+              </button>
+            </div>
+          </div>
+        `).join('');
+      }
+    }
+
+    // Navigation
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
           target.scrollIntoView({ behavior: 'smooth' });
+          // Update active nav
+          document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+          this.classList.add('active');
         }
+        // Close mobile menu
+        document.getElementById('mobile-menu').classList.add('hidden');
       });
     });
-    
-    // Initialize visible sections on load
-    setTimeout(() => {
-      document.querySelectorAll('.section').forEach(section => {
-        if (section.getBoundingClientRect().top < window.innerHeight) {
-          section.classList.add('visible');
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 100) {
+        navbar.style.background = 'var(--color-bg)';
+        navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
+      } else {
+        navbar.style.background = 'transparent';
+        navbar.style.boxShadow = 'none';
+      }
+    });
+
+    // Mobile Menu
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.remove('hidden');
+    });
+
+    document.getElementById('mobile-menu-close').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.add('hidden');
+    });
+
+    // Cart Modal
+    document.getElementById('cart-btn').addEventListener('click', () => {
+      document.getElementById('cart-modal').classList.remove('hidden');
+    });
+
+    document.getElementById('cart-close').addEventListener('click', () => {
+      document.getElementById('cart-modal').classList.add('hidden');
+    });
+
+    document.getElementById('cart-backdrop').addEventListener('click', () => {
+      document.getElementById('cart-modal').classList.add('hidden');
+    });
+
+    document.getElementById('checkout-btn').addEventListener('click', () => {
+      showToast('Demo checkout - Order placed!');
+      cart = [];
+      updateCartUI();
+      document.getElementById('cart-modal').classList.add('hidden');
+    });
+
+    // Login Modal
+    document.getElementById('login-btn').addEventListener('click', () => {
+      if (isLoggedIn) {
+        isLoggedIn = false;
+        currentUser = null;
+        document.getElementById('login-btn').textContent = 'Sign In';
+        showToast('Signed out successfully');
+      } else {
+        document.getElementById('login-modal').classList.remove('hidden');
+      }
+    });
+
+    document.getElementById('login-close').addEventListener('click', () => {
+      document.getElementById('login-modal').classList.add('hidden');
+    });
+
+    document.getElementById('login-backdrop').addEventListener('click', () => {
+      document.getElementById('login-modal').classList.add('hidden');
+    });
+
+    document.getElementById('login-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value;
+      
+      isLoggedIn = true;
+      currentUser = { email };
+      document.getElementById('login-btn').textContent = 'Sign Out';
+      document.getElementById('login-modal').classList.add('hidden');
+      showToast('Welcome back!');
+      
+      // Clear form
+      document.getElementById('login-form').reset();
+    });
+
+    // Reservation Form
+    document.getElementById('reservation-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const submitBtn = document.getElementById('reservation-submit');
+      const btnText = document.getElementById('reservation-btn-text');
+      const spinner = document.getElementById('reservation-spinner');
+      
+      // Show loading state
+      submitBtn.disabled = true;
+      btnText.textContent = 'Booking...';
+      spinner.classList.remove('hidden');
+      
+      const reservationData = {
+        id: Date.now().toString(),
+        type: 'reservation',
+        name: document.getElementById('res-name').value,
+        email: document.getElementById('res-email').value,
+        phone: document.getElementById('res-phone').value,
+        date: document.getElementById('res-date').value,
+        time: document.getElementById('res-time').value,
+        guests: parseInt(document.getElementById('res-guests').value),
+        message: document.getElementById('res-message').value,
+        createdAt: new Date().toISOString()
+      };
+      
+      try {
+        // Check limit
+        if (reservations.length >= 999) {
+          showToast('Reservation limit reached. Please contact us directly.', false);
+          return;
         }
+        
+        if (window.dataSdk) {
+          const result = await window.dataSdk.create(reservationData);
+          if (result.isOk) {
+            showToast('Reservation confirmed! We\'ll see you soon.');
+            document.getElementById('reservation-form').reset();
+          } else {
+            showToast('Something went wrong. Please try again.', false);
+          }
+        } else {
+          // Fallback for demo
+          showToast('Reservation confirmed! We\'ll see you soon.');
+          document.getElementById('reservation-form').reset();
+        }
+      } catch (error) {
+        showToast('Something went wrong. Please try again.', false);
+      } finally {
+        // Reset button state
+        submitBtn.disabled = false;
+        btnText.textContent = 'Reserve Now';
+        spinner.classList.add('hidden');
+      }
+    });
+
+    // Set minimum date for reservation
+    const dateInput = document.getElementById('res-date');
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.setAttribute('min', today);
+    dateInput.value = today;
+
+    // Menu Category Buttons
+    document.querySelectorAll('.menu-category-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        switchCategory(btn.dataset.category);
       });
-    }, 100);
+    });
+
+    // Initialize
+    renderMenu('coffee');
+    updateCartUI();
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d2452acd2ec5a20',t:'MTc3MTgyNDU0MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d247df0621ba3b5',t:'MTc3MTgyNjMxMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
