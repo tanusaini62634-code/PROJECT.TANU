@@ -1,947 +1,907 @@
-
 <!doctype html>
 <html lang="en" class="h-full">
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Artisan Brew Café</title>
+  <title>Chai &amp; Coffee House</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="/_sdk/element_sdk.js"></script>
   <script src="/_sdk/data_sdk.js"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&amp;family=Raleway:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Poppins:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
   <style>
-    :root {
-      --color-bg: #1a1512;
-      --color-surface: #2d2520;
-      --color-text: #f5f0eb;
-      --color-primary: #c9a66b;
-      --color-secondary: #8b7355;
-    }
-    html, body { height: 100%; margin: 0; }
-    body {
-      font-family: 'Raleway', sans-serif;
-      background: var(--color-bg);
-      color: var(--color-text);
-    }
     .font-display { font-family: 'Playfair Display', serif; }
-    .gradient-overlay {
-      background: linear-gradient(135deg, rgba(26,21,18,0.95) 0%, rgba(26,21,18,0.7) 50%, rgba(26,21,18,0.4) 100%);
+    .font-body { font-family: 'Poppins', sans-serif; }
+    
+    .hero-gradient {
+      background: linear-gradient(135deg, #1a0f0a 0%, #2d1810 50%, #4a2c20 100%);
     }
-    .gold-gradient {
-      background: linear-gradient(135deg, #c9a66b 0%, #e8d5b0 50%, #c9a66b 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+    
     .card-hover {
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .card-hover:hover {
       transform: translateY(-8px);
-      box-shadow: 0 25px 50px -12px rgba(201, 166, 107, 0.25);
+      box-shadow: 0 20px 40px rgba(139, 90, 43, 0.3);
     }
-    .nav-link {
-      position: relative;
-      transition: color 0.3s ease;
-    }
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--color-primary);
-      transition: width 0.3s ease;
-    }
-    .nav-link:hover::after, .nav-link.active::after {
-      width: 100%;
-    }
+    
     .btn-primary {
-      background: linear-gradient(135deg, #c9a66b 0%, #b8956a 100%);
+      background: linear-gradient(135deg, #d4a574 0%, #8b5a2b 100%);
       transition: all 0.3s ease;
     }
     .btn-primary:hover {
-      background: linear-gradient(135deg, #d4b87a 0%, #c9a66b 100%);
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px -10px rgba(201, 166, 107, 0.5);
+      background: linear-gradient(135deg, #e5b885 0%, #9c6b3c 100%);
+      transform: scale(1.05);
     }
+    
     .menu-item {
-      border-bottom: 1px solid rgba(201, 166, 107, 0.1);
+      animation: fadeInUp 0.6s ease forwards;
+      opacity: 0;
     }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
     .steam {
-      animation: steam 3s ease-in-out infinite;
+      position: absolute;
+      width: 8px;
+      height: 40px;
+      background: linear-gradient(to top, rgba(255,255,255,0.1), rgba(255,255,255,0.4), transparent);
+      border-radius: 50%;
+      animation: steam 2s infinite ease-out;
     }
+    
     @keyframes steam {
-      0%, 100% { opacity: 0.3; transform: translateY(0) scale(1); }
-      50% { opacity: 0.8; transform: translateY(-10px) scale(1.1); }
+      0% { transform: translateY(0) scaleX(1); opacity: 0.4; }
+      50% { transform: translateY(-20px) scaleX(1.5); opacity: 0.2; }
+      100% { transform: translateY(-40px) scaleX(2); opacity: 0; }
     }
-    .fade-in {
-      animation: fadeIn 0.6s ease-out forwards;
+    
+    .pattern-bg {
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4a574' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    
+    .img-placeholder {
+      background: linear-gradient(135deg, #3d2317 0%, #5a3825 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: #d4a574;
+      border: 2px dashed #8b5a2b;
     }
-    .slide-in {
-      animation: slideIn 0.5s ease-out forwards;
-    }
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateX(-20px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-    .input-field {
-      background: rgba(45, 37, 32, 0.8);
-      border: 1px solid rgba(201, 166, 107, 0.3);
-      transition: all 0.3s ease;
-    }
-    .input-field:focus {
-      border-color: var(--color-primary);
-      box-shadow: 0 0 0 3px rgba(201, 166, 107, 0.1);
-      outline: none;
-    }
-    .toast {
-      animation: toastIn 0.4s ease-out forwards;
-    }
-    @keyframes toastIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .modal-backdrop {
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(4px);
-    }
-    .scrollbar-hide::-webkit-scrollbar { display: none; }
-    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
   <style>body { box-sizing: border-box; }</style>
  </head>
- <body class="h-full">
-  <div id="app" class="h-full overflow-auto scrollbar-hide"><!-- Navigation -->
-   <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" style="background: transparent;">
-    <div class="max-w-7xl mx-auto px-6 py-4">
-     <div class="flex items-center justify-between"><a href="#home" class="flex items-center gap-3">
-       <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background: var(--color-primary);">
-        <svg class="w-7 h-7" fill="#1a1512" viewbox="0 0 24 24"><path d="M2,21H20V19H2M20,8H18V5H20M20,3H4V13A4,4 0 0,0 8,17H14A4,4 0 0,0 18,13V10H20A2,2 0 0,0 22,8V5C22,3.89 21.1,3 20,3Z" />
-        </svg>
-       </div><span id="nav-cafe-name" class="font-display text-2xl font-semibold" style="color: var(--color-primary);">Artisan Brew</span> </a>
-      <div class="hidden md:flex items-center gap-8"><a href="#home" class="nav-link active" style="color: var(--color-text);">Home</a> <a href="#menu" class="nav-link" style="color: var(--color-text);">Menu</a> <a href="#about" class="nav-link" style="color: var(--color-text);">About</a> <a href="#gallery" class="nav-link" style="color: var(--color-text);">Gallery</a> <a href="#contact" class="nav-link" style="color: var(--color-text);">Contact</a>
+ <body class="h-full font-body bg-[#0f0906] text-[#f5ebe0] overflow-auto"><!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-[#1a0f0a]/95 backdrop-blur-md border-b border-[#8b5a2b]/30">
+   <div class="max-w-7xl mx-auto px-4 py-4">
+    <div class="flex items-center justify-between">
+     <div class="flex items-center gap-3">
+      <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#d4a574] to-[#8b5a2b] flex items-center justify-center"><span class="text-2xl">☕</span>
       </div>
-      <div class="flex items-center gap-4"><button id="cart-btn" class="relative p-2 rounded-full transition-colors" style="background: var(--color-surface);">
-        <svg class="w-6 h-6" fill="var(--color-primary)" viewbox="0 0 24 24"><path d="M17,18A2,2 0 0,1 19,20A2,2 0 0,1 17,22C15.89,22 15,21.1 15,20C15,18.89 15.89,18 17,18M1,2H4.27L5.21,4H20A1,1 0 0,1 21,5C21,5.17 20.95,5.34 20.88,5.5L17.3,11.97C16.96,12.58 16.3,13 15.55,13H8.1L7.2,14.63L7.17,14.75A0.25,0.25 0 0,0 7.42,15H19V17H7C5.89,17 5,16.1 5,15C5,14.65 5.09,14.32 5.24,14.04L6.6,11.59L3,4H1V2M7,18A2,2 0 0,1 9,20A2,2 0 0,1 7,22C5.89,22 5,21.1 5,20C5,18.89 5.89,18 7,18M16,11L18.78,6H6.14L8.5,11H16Z" />
-        </svg><span id="cart-count" class="absolute -top-1 -right-1 w-5 h-5 rounded-full text-xs font-bold flex items-center justify-center" style="background: var(--color-primary); color: var(--color-bg);">0</span> </button> <button id="login-btn" class="btn-primary px-5 py-2 rounded-full font-medium text-sm" style="color: var(--color-bg);"> Sign In </button> <button id="mobile-menu-btn" class="md:hidden p-2">
-        <svg class="w-6 h-6" fill="var(--color-text)" viewbox="0 0 24 24"><path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
-        </svg></button>
+      <div>
+       <h1 id="nav-shop-name" class="font-display text-xl font-bold text-[#d4a574]">Chai &amp; Coffee House</h1>
+       <p class="text-xs text-[#a89080]">Est. 1985</p>
       </div>
      </div>
-    </div>
-   </nav><!-- Mobile Menu -->
-   <div id="mobile-menu" class="fixed inset-0 z-40 hidden" style="background: var(--color-bg);">
-    <div class="flex flex-col items-center justify-center h-full gap-8"><a href="#home" class="text-2xl font-display mobile-nav-link" style="color: var(--color-primary);">Home</a> <a href="#menu" class="text-2xl font-display mobile-nav-link" style="color: var(--color-text);">Menu</a> <a href="#about" class="text-2xl font-display mobile-nav-link" style="color: var(--color-text);">About</a> <a href="#gallery" class="text-2xl font-display mobile-nav-link" style="color: var(--color-text);">Gallery</a> <a href="#contact" class="text-2xl font-display mobile-nav-link" style="color: var(--color-text);">Contact</a> <button id="mobile-menu-close" class="mt-8 p-3 rounded-full" style="background: var(--color-surface);">
-      <svg class="w-6 h-6" fill="var(--color-text)" viewbox="0 0 24 24"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
-      </svg></button>
-    </div>
-   </div><!-- Hero Section -->
-   <section id="home" class="relative min-h-screen flex items-center">
-    <div class="absolute inset-0">
-     <div class="w-full h-full" style="background: linear-gradient(135deg, #2d2520 0%, #1a1512 50%, #0d0a08 100%);"></div>
-     <div class="absolute inset-0 gradient-overlay"></div><!-- Coffee Bean Pattern -->
-     <div class="absolute inset-0 opacity-5">
-      <svg class="w-full h-full" viewbox="0 0 100 100" preserveaspectratio="none"><pattern id="beans" x="0" y="0" width="20" height="20" patternunits="userSpaceOnUse">
-        <ellipse cx="10" cy="10" rx="4" ry="6" fill="#c9a66b" transform="rotate(30 10 10)" />
-       </pattern> <rect width="100%" height="100%" fill="url(#beans)" />
-      </svg>
+     <div class="hidden md:flex items-center gap-8"><a href="#home" class="text-[#f5ebe0] hover:text-[#d4a574] transition-colors">Home</a> <a href="#menu" class="text-[#f5ebe0] hover:text-[#d4a574] transition-colors">Menu</a> <a href="#about" class="text-[#f5ebe0] hover:text-[#d4a574] transition-colors">About</a> <a href="#gallery" class="text-[#f5ebe0] hover:text-[#d4a574] transition-colors">Gallery</a> <a href="#contact" class="text-[#f5ebe0] hover:text-[#d4a574] transition-colors">Contact</a>
+     </div>
+     <div class="flex items-center gap-4"><button id="cart-btn" class="relative text-[#d4a574] text-2xl hover:text-[#f5ebe0] transition-colors"> 🛒 <span id="cart-count" class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span> </button> <button id="mobile-menu-btn" class="md:hidden text-[#d4a574] text-2xl">☰</button>
      </div>
     </div>
-    <div class="relative z-10 max-w-7xl mx-auto px-6 py-32 grid lg:grid-cols-2 gap-12 items-center">
-     <div class="fade-in">
-      <p class="text-sm tracking-[0.3em] uppercase mb-4" style="color: var(--color-primary);">Welcome to</p>
-      <h1 id="hero-title" class="font-display text-5xl md:text-7xl font-bold mb-6 gold-gradient">Artisan Brew Café</h1>
-      <p id="hero-tagline" class="text-xl md:text-2xl mb-8 leading-relaxed" style="color: var(--color-secondary);">Where every cup tells a story of passion, craftsmanship, and the finest beans from around the world.</p>
-      <div class="flex flex-wrap gap-4"><a href="#menu" class="btn-primary px-8 py-4 rounded-full font-semibold text-lg" style="color: var(--color-bg);">Explore Menu</a> <a href="#reservation" class="px-8 py-4 rounded-full font-semibold text-lg border-2 transition-all hover:bg-opacity-10" style="border-color: var(--color-primary); color: var(--color-primary);">Reserve Table</a>
+   </div><!-- Mobile Menu -->
+   <div id="mobile-menu" class="hidden md:hidden bg-[#1a0f0a] border-t border-[#8b5a2b]/30 px-4 py-4">
+    <div class="flex flex-col gap-4"><a href="#home" class="text-[#f5ebe0] hover:text-[#d4a574] transition-colors">Home</a> <a href="#menu" class="text-[#f5ebe0] hover:text-[#d4a574] transition-colors">Menu</a> <a href="#about" class="text-[#f5ebe0] hover:text-[#d4a574] transition-colors">About</a> <a href="#gallery" class="text-[#f5ebe0] hover:text-[#d4a574] transition-colors">Gallery</a> <a href="#contact" class="text-[#f5ebe0] hover:text-[#d4a574] transition-colors">Contact</a>
+    </div>
+   </div>
+  </nav><!-- Hero Section -->
+  <section id="home" class="hero-gradient min-h-screen flex items-center relative overflow-hidden pt-20">
+   <div class="absolute inset-0 pattern-bg"></div>
+   <div class="absolute top-20 right-10 opacity-20">
+    <svg width="150" height="150" viewbox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="45" stroke="#d4a574" stroke-width="2" stroke-dasharray="10 5" />
+    </svg>
+   </div>
+   <div class="absolute bottom-20 left-10 opacity-20">
+    <svg width="100" height="100" viewbox="0 0 100 100" fill="none"><path d="M50 10 L90 90 L10 90 Z" stroke="#d4a574" stroke-width="2" fill="none" />
+    </svg>
+   </div>
+   <div class="max-w-7xl mx-auto px-4 py-16 relative z-10">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+     <div class="text-center lg:text-left">
+      <p class="text-[#d4a574] font-medium mb-4 tracking-widest uppercase text-sm">Welcome to</p>
+      <h1 id="hero-shop-name" class="font-display text-5xl md:text-7xl font-bold mb-6 leading-tight">Chai &amp; Coffee<br><span class="text-[#d4a574]">House</span></h1>
+      <p id="hero-tagline" class="text-xl text-[#a89080] mb-8 max-w-lg mx-auto lg:mx-0">Experience the authentic taste of India with our traditional chai and premium coffee blends</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"><a href="#menu" class="btn-primary px-8 py-4 rounded-full text-white font-semibold text-center"> Explore Menu </a> <a href="#contact" class="border-2 border-[#d4a574] px-8 py-4 rounded-full text-[#d4a574] font-semibold hover:bg-[#d4a574] hover:text-[#1a0f0a] transition-all text-center"> Visit Us </a>
       </div>
-      <div class="flex items-center gap-8 mt-12">
+      <div class="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-[#8b5a2b]/30">
        <div class="text-center">
-        <p class="font-display text-3xl font-bold" style="color: var(--color-primary);">15+</p>
-        <p class="text-sm" style="color: var(--color-secondary);">Years Experience</p>
+        <p class="font-display text-3xl font-bold text-[#d4a574]">38+</p>
+        <p class="text-sm text-[#a89080]">Years Legacy</p>
        </div>
-       <div class="w-px h-12" style="background: var(--color-secondary);"></div>
        <div class="text-center">
-        <p class="font-display text-3xl font-bold" style="color: var(--color-primary);">50+</p>
-        <p class="text-sm" style="color: var(--color-secondary);">Coffee Varieties</p>
+        <p class="font-display text-3xl font-bold text-[#d4a574]">50+</p>
+        <p class="text-sm text-[#a89080]">Varieties</p>
        </div>
-       <div class="w-px h-12" style="background: var(--color-secondary);"></div>
        <div class="text-center">
-        <p class="font-display text-3xl font-bold" style="color: var(--color-primary);">10K+</p>
-        <p class="text-sm" style="color: var(--color-secondary);">Happy Customers</p>
+        <p class="font-display text-3xl font-bold text-[#d4a574]">10K+</p>
+        <p class="text-sm text-[#a89080]">Happy Customers</p>
        </div>
       </div>
      </div>
-     <div class="relative flex justify-center fade-in" style="animation-delay: 0.3s;"><!-- Decorative Coffee Cup SVG -->
-      <div class="relative">
-       <svg class="w-72 h-72 md:w-96 md:h-96" viewbox="0 0 200 200"><!-- Cup Shadow --> <ellipse cx="100" cy="180" rx="60" ry="10" fill="rgba(0,0,0,0.3)" /> <!-- Saucer --> <ellipse cx="100" cy="165" rx="70" ry="15" fill="#8b7355" /> <ellipse cx="100" cy="162" rx="65" ry="12" fill="#a08060" /> <!-- Cup Body --> <path d="M50 80 L55 150 Q60 165 100 165 Q140 165 145 150 L150 80 Z" fill="#f5f0eb" /> <path d="M55 85 L58 145 Q62 158 100 158 Q138 158 142 145 L145 85 Z" fill="#e8e0d8" /> <!-- Cup Handle --> <path d="M150 95 Q175 95 175 120 Q175 145 150 145" fill="none" stroke="#f5f0eb" stroke-width="12" stroke-linecap="round" /> <path d="M150 100 Q168 100 168 120 Q168 140 150 140" fill="none" stroke="#e8e0d8" stroke-width="6" stroke-linecap="round" /> <!-- Coffee --> <ellipse cx="100" cy="88" rx="42" ry="8" fill="#3d2817" /> <ellipse cx="100" cy="86" rx="38" ry="6" fill="#5c3d2e" /> <!-- Steam --> <g class="steam">
-         <path d="M80 60 Q75 40 85 30" fill="none" stroke="rgba(245,240,235,0.6)" stroke-width="3" stroke-linecap="round" />
-         <path d="M100 55 Q105 35 95 20" fill="none" stroke="rgba(245,240,235,0.6)" stroke-width="3" stroke-linecap="round" />
-         <path d="M120 60 Q125 40 115 30" fill="none" stroke="rgba(245,240,235,0.6)" stroke-width="3" stroke-linecap="round" />
-        </g> <!-- Latte Art --> <path d="M85 86 Q100 78 115 86" fill="none" stroke="#e8d5b0" stroke-width="2" /> <ellipse cx="100" cy="84" rx="8" ry="4" fill="#e8d5b0" opacity="0.5" />
-       </svg><!-- Floating Beans -->
-       <div class="absolute -top-4 -left-4 w-8 h-12 rounded-full" style="background: var(--color-primary); transform: rotate(-30deg);"></div>
-       <div class="absolute top-20 -right-8 w-6 h-10 rounded-full" style="background: var(--color-secondary); transform: rotate(45deg);"></div>
-       <div class="absolute bottom-20 -left-12 w-5 h-8 rounded-full" style="background: var(--color-primary); opacity: 0.6; transform: rotate(15deg);"></div>
-      </div>
-     </div>
-    </div><!-- Scroll Indicator -->
-    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2"><span class="text-xs tracking-widest" style="color: var(--color-secondary);">SCROLL</span>
-     <div class="w-6 h-10 rounded-full border-2 flex justify-center pt-2" style="border-color: var(--color-secondary);">
-      <div class="w-1.5 h-3 rounded-full animate-bounce" style="background: var(--color-primary);"></div>
-     </div>
-    </div>
-   </section><!-- Menu Section -->
-   <section id="menu" class="py-24" style="background: var(--color-surface);">
-    <div class="max-w-7xl mx-auto px-6">
-     <div class="text-center mb-16">
-      <p class="text-sm tracking-[0.3em] uppercase mb-4" style="color: var(--color-primary);">Our Selection</p>
-      <h2 class="font-display text-4xl md:text-5xl font-bold mb-6" style="color: var(--color-text);">Curated Menu</h2>
-      <p class="max-w-2xl mx-auto" style="color: var(--color-secondary);">From signature espressos to artisanal pastries, discover flavors that awaken your senses.</p>
-     </div><!-- Menu Categories -->
-     <div class="flex flex-wrap justify-center gap-4 mb-12"><button class="menu-category-btn active px-6 py-3 rounded-full font-medium transition-all" data-category="coffee" style="background: var(--color-primary); color: var(--color-bg);">Coffee</button> <button class="menu-category-btn px-6 py-3 rounded-full font-medium transition-all" data-category="specialty" style="background: transparent; border: 1px solid var(--color-primary); color: var(--color-primary);">Specialty</button> <button class="menu-category-btn px-6 py-3 rounded-full font-medium transition-all" data-category="pastries" style="background: transparent; border: 1px solid var(--color-primary); color: var(--color-primary);">Pastries</button> <button class="menu-category-btn px-6 py-3 rounded-full font-medium transition-all" data-category="breakfast" style="background: transparent; border: 1px solid var(--color-primary); color: var(--color-primary);">Breakfast</button>
-     </div><!-- Menu Grid -->
-     <div id="menu-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"><!-- Menu items will be populated by JS -->
-     </div>
-    </div>
-   </section><!-- About Section -->
-   <section id="about" class="py-24" style="background: var(--color-bg);">
-    <div class="max-w-7xl mx-auto px-6">
-     <div class="grid lg:grid-cols-2 gap-16 items-center">
-      <div class="relative"><!-- About Image Placeholder with Coffee Theme -->
-       <div class="relative rounded-2xl overflow-hidden" style="background: linear-gradient(135deg, #3d2817 0%, #5c3d2e 100%); aspect-ratio: 4/5;">
-        <div class="absolute inset-0 flex items-center justify-center">
-         <svg class="w-48 h-48 opacity-20" viewbox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="#c9a66b" stroke-width="2" /> <path d="M30 45 Q50 20 70 45 Q50 70 30 45" fill="#c9a66b" opacity="0.3" /> <text x="50" y="55" text-anchor="middle" fill="#c9a66b" font-size="12" font-family="serif">
-           Est. 2009
-          </text>
-         </svg>
-        </div>
-        <div class="absolute bottom-0 left-0 right-0 p-8" style="background: linear-gradient(transparent, rgba(26,21,18,0.9));">
-         <p class="font-display text-2xl" style="color: var(--color-primary);">"Coffee is our craft"</p>
-        </div>
-       </div><!-- Floating Stats Card -->
-       <div class="absolute -bottom-8 -right-8 p-6 rounded-2xl shadow-2xl" style="background: var(--color-primary);">
-        <p class="font-display text-4xl font-bold" style="color: var(--color-bg);">15</p>
-        <p class="text-sm font-medium" style="color: var(--color-bg);">Years of Excellence</p>
+     <div class="relative">
+      <div class="relative w-full max-w-md mx-auto"><img id="hero-image" src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&amp;h=600&amp;fit=crop" alt="Delicious Indian Chai and Coffee" loading="lazy" class="w-full h-80 md:h-96 object-cover rounded-3xl shadow-2xl" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+       <div class="w-full h-80 md:h-96 rounded-3xl img-placeholder hidden"><span class="text-4xl mb-2">☕</span> <span class="text-sm text-center px-4">HERO IMAGE</span>
        </div>
-      </div>
-      <div>
-       <p class="text-sm tracking-[0.3em] uppercase mb-4" style="color: var(--color-primary);">Our Story</p>
-       <h2 id="about-title" class="font-display text-4xl md:text-5xl font-bold mb-6" style="color: var(--color-text);">Crafting Moments Since 2009</h2>
-       <p class="text-lg mb-6 leading-relaxed" style="color: var(--color-secondary);">What started as a small corner café has grown into a beloved destination for coffee enthusiasts. Our passion lies in sourcing the finest beans and crafting each cup with precision and love.</p>
-       <p class="mb-8 leading-relaxed" style="color: var(--color-secondary);">Every morning, our master baristas roast fresh batches of single-origin beans, ensuring that each sip delivers an exceptional experience. We believe great coffee brings people together.</p>
-       <div class="grid grid-cols-2 gap-6 mb-8">
-        <div class="p-4 rounded-xl" style="background: var(--color-surface);">
-         <svg class="w-10 h-10 mb-3" fill="var(--color-primary)" viewbox="0 0 24 24"><path d="M12,3L2,12H5V20H19V12H22L12,3M12,8.75A2.25,2.25 0 0,1 14.25,11A2.25,2.25 0 0,1 12,13.25A2.25,2.25 0 0,1 9.75,11A2.25,2.25 0 0,1 12,8.75M12,15C13.5,15 16.5,15.75 16.5,17.25V18H7.5V17.25C7.5,15.75 10.5,15 12,15Z" />
-         </svg>
-         <h4 class="font-display font-semibold mb-1" style="color: var(--color-text);">Expert Baristas</h4>
-         <p class="text-sm" style="color: var(--color-secondary);">Award-winning team</p>
-        </div>
-        <div class="p-4 rounded-xl" style="background: var(--color-surface);">
-         <svg class="w-10 h-10 mb-3" fill="var(--color-primary)" viewbox="0 0 24 24"><path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6M12,8A4,4 0 0,0 8,12A4,4 0 0,0 12,16A4,4 0 0,0 16,12A4,4 0 0,0 12,8Z" />
-         </svg>
-         <h4 class="font-display font-semibold mb-1" style="color: var(--color-text);">Organic Beans</h4>
-         <p class="text-sm" style="color: var(--color-secondary);">Sustainably sourced</p>
-        </div>
-       </div><a href="#contact" class="btn-primary inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold" style="color: var(--color-bg);"> Learn More 
-        <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" />
-        </svg></a>
-      </div>
-     </div>
-    </div>
-   </section><!-- Gallery Section -->
-   <section id="gallery" class="py-24" style="background: var(--color-surface);">
-    <div class="max-w-7xl mx-auto px-6">
-     <div class="text-center mb-16">
-      <p class="text-sm tracking-[0.3em] uppercase mb-4" style="color: var(--color-primary);">Visual Journey</p>
-      <h2 class="font-display text-4xl md:text-5xl font-bold mb-6" style="color: var(--color-text);">Our Gallery</h2>
-      <p class="max-w-2xl mx-auto" style="color: var(--color-secondary);">Glimpses of our cozy space, artful creations, and the moments that make us special.</p>
-     </div>
-     <div class="grid grid-cols-2 md:grid-cols-4 gap-4"><!-- Gallery Items with SVG Placeholders -->
-      <div class="col-span-2 row-span-2 rounded-2xl overflow-hidden card-hover" style="background: linear-gradient(135deg, #3d2817 0%, #5c3d2e 100%); aspect-ratio: 1;">
-       <div class="w-full h-full flex items-center justify-center p-8">
-        <svg class="w-32 h-32" viewbox="0 0 100 100"><rect x="10" y="30" width="80" height="50" rx="5" fill="#c9a66b" opacity="0.3" /> <rect x="20" y="40" width="60" height="30" rx="3" fill="#c9a66b" opacity="0.5" /> <circle cx="50" cy="55" r="10" fill="#c9a66b" /> <text x="50" y="90" text-anchor="middle" fill="#c9a66b" font-size="8">
-          Interior
-         </text>
-        </svg>
-       </div>
-      </div>
-      <div class="rounded-2xl overflow-hidden card-hover" style="background: linear-gradient(135deg, #5c3d2e 0%, #3d2817 100%); aspect-ratio: 1;">
-       <div class="w-full h-full flex items-center justify-center p-4">
-        <svg class="w-16 h-16" viewbox="0 0 50 50"><circle cx="25" cy="25" r="20" fill="#c9a66b" opacity="0.3" /> <path d="M15 25 Q25 15 35 25 Q25 35 15 25" fill="#c9a66b" />
-        </svg>
-       </div>
-      </div>
-      <div class="rounded-2xl overflow-hidden card-hover" style="background: linear-gradient(135deg, #8b7355 0%, #5c3d2e 100%); aspect-ratio: 1;">
-       <div class="w-full h-full flex items-center justify-center p-4">
-        <svg class="w-16 h-16" viewbox="0 0 50 50"><rect x="10" y="15" width="30" height="25" rx="3" fill="#c9a66b" opacity="0.5" /> <circle cx="25" cy="27" r="8" fill="#c9a66b" />
-        </svg>
-       </div>
-      </div>
-      <div class="rounded-2xl overflow-hidden card-hover" style="background: linear-gradient(135deg, #2d2520 0%, #5c3d2e 100%); aspect-ratio: 1;">
-       <div class="w-full h-full flex items-center justify-center p-4">
-        <svg class="w-16 h-16" viewbox="0 0 50 50"><ellipse cx="25" cy="35" rx="15" ry="8" fill="#c9a66b" opacity="0.3" /> <path d="M15 20 L17 32 Q25 38 33 32 L35 20 Z" fill="#c9a66b" opacity="0.6" />
-        </svg>
-       </div>
-      </div>
-      <div class="rounded-2xl overflow-hidden card-hover" style="background: linear-gradient(135deg, #c9a66b 0%, #8b7355 100%); aspect-ratio: 1;">
-       <div class="w-full h-full flex items-center justify-center p-4">
-        <svg class="w-16 h-16" viewbox="0 0 50 50"><circle cx="25" cy="25" r="18" fill="#1a1512" opacity="0.3" /> <path d="M20 25 Q25 18 30 25 Q25 32 20 25" fill="#1a1512" />
-        </svg>
+       <div class="absolute -top-4 left-1/3 steam" style="animation-delay: 0s;"></div>
+       <div class="absolute -top-4 left-1/2 steam" style="animation-delay: 0.5s;"></div>
+       <div class="absolute -top-4 left-2/3 steam" style="animation-delay: 1s;"></div>
+       <div class="absolute -bottom-4 -right-4 bg-[#d4a574] text-[#1a0f0a] px-6 py-3 rounded-2xl shadow-lg">
+        <p class="font-display font-bold">Since 1985</p>
        </div>
       </div>
      </div>
     </div>
-   </section><!-- Reservation Section -->
-   <section id="reservation" class="py-24" style="background: var(--color-bg);">
-    <div class="max-w-7xl mx-auto px-6">
-     <div class="grid lg:grid-cols-2 gap-16">
-      <div>
-       <p class="text-sm tracking-[0.3em] uppercase mb-4" style="color: var(--color-primary);">Book Your Visit</p>
-       <h2 class="font-display text-4xl md:text-5xl font-bold mb-6" style="color: var(--color-text);">Reserve a Table</h2>
-       <p class="text-lg mb-8" style="color: var(--color-secondary);">Whether it's a business meeting, a date, or catching up with friends, we'll make your visit memorable.</p>
-       <div class="space-y-6">
-        <div class="flex items-center gap-4">
-         <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background: var(--color-surface);">
-          <svg class="w-6 h-6" fill="var(--color-primary)" viewbox="0 0 24 24"><path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z" />
-          </svg>
-         </div>
-         <div>
-          <h4 class="font-semibold" style="color: var(--color-text);">Location</h4>
-          <p style="color: var(--color-secondary);">123 Coffee Lane, Brew District</p>
-         </div>
+   </div>
+  </section><!-- Menu Section -->
+  <section id="menu" class="py-20 bg-[#0f0906] pattern-bg">
+   <div class="max-w-7xl mx-auto px-4">
+    <div class="text-center mb-16">
+     <p class="text-[#d4a574] font-medium mb-2 tracking-widest uppercase text-sm">Our Specialties</p>
+     <h2 class="font-display text-4xl md:text-5xl font-bold mb-4">Signature Menu</h2>
+     <p class="text-[#a89080] max-w-2xl mx-auto">Crafted with love using traditional recipes passed down through generations</p>
+    </div>
+    <div class="flex flex-wrap justify-center gap-4 mb-12"><button class="menu-tab active px-6 py-2 rounded-full bg-[#d4a574] text-[#1a0f0a] font-medium transition-all" data-category="chai">Chai</button> <button class="menu-tab px-6 py-2 rounded-full bg-[#2d1810] text-[#f5ebe0] font-medium hover:bg-[#d4a574] hover:text-[#1a0f0a] transition-all" data-category="coffee">Coffee</button> <button class="menu-tab px-6 py-2 rounded-full bg-[#2d1810] text-[#f5ebe0] font-medium hover:bg-[#d4a574] hover:text-[#1a0f0a] transition-all" data-category="snacks">Snacks</button> <button class="menu-tab px-6 py-2 rounded-full bg-[#2d1810] text-[#f5ebe0] font-medium hover:bg-[#d4a574] hover:text-[#1a0f0a] transition-all" data-category="desserts">Desserts</button>
+    </div>
+    <div id="menu-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"><!-- Menu items will be populated by JavaScript -->
+    </div>
+   </div>
+  </section><!-- About Section -->
+  <section id="about" class="py-20 bg-gradient-to-b from-[#1a0f0a] to-[#0f0906]">
+   <div class="max-w-7xl mx-auto px-4">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+     <div class="relative"><img id="about-image" src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?w=600&amp;h=500&amp;fit=crop" alt="Our Coffee Shop Interior" loading="lazy" class="w-full h-96 object-cover rounded-3xl shadow-2xl" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="w-full h-96 rounded-3xl img-placeholder hidden"><span class="text-4xl mb-2">🏪</span> <span class="text-sm text-center px-4">ABOUT IMAGE</span>
+      </div>
+      <div class="absolute -bottom-6 -right-6 w-full h-full border-4 border-[#d4a574]/30 rounded-3xl -z-10"></div>
+     </div>
+     <div>
+      <p class="text-[#d4a574] font-medium mb-2 tracking-widest uppercase text-sm">Our Story</p>
+      <h2 class="font-display text-4xl md:text-5xl font-bold mb-6">A Legacy of<br><span class="text-[#d4a574]">Authentic Flavors</span></h2>
+      <p id="about-text" class="text-[#a89080] mb-6 leading-relaxed">Started in 1985 by Sharma Ji in the heart of Old Delhi, our coffee house has been serving the finest chai and coffee for over three decades. We source our tea leaves from Assam and Darjeeling, and our coffee beans from the misty hills of Coorg.</p>
+      <p class="text-[#a89080] mb-8 leading-relaxed">Every cup is prepared with the same love and dedication that our founder instilled in us. Our secret masala blend, passed down through generations, makes our chai truly special.</p>
+      <div class="grid grid-cols-2 gap-6">
+       <div class="flex items-start gap-4">
+        <div class="w-12 h-12 rounded-full bg-[#d4a574]/20 flex items-center justify-center flex-shrink-0"><span class="text-2xl">🌿</span>
         </div>
-        <div class="flex items-center gap-4">
-         <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background: var(--color-surface);">
-          <svg class="w-6 h-6" fill="var(--color-primary)" viewbox="0 0 24 24"><path d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z" />
-          </svg>
-         </div>
-         <div>
-          <h4 class="font-semibold" style="color: var(--color-text);">Hours</h4>
-          <p style="color: var(--color-secondary);">Mon-Fri: 7AM-9PM | Sat-Sun: 8AM-10PM</p>
-         </div>
-        </div>
-        <div class="flex items-center gap-4">
-         <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background: var(--color-surface);">
-          <svg class="w-6 h-6" fill="var(--color-primary)" viewbox="0 0 24 24"><path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z" />
-          </svg>
-         </div>
-         <div>
-          <h4 class="font-semibold" style="color: var(--color-text);">Contact</h4>
-          <p style="color: var(--color-secondary);">+1 (555) 123-4567</p>
-         </div>
+        <div>
+         <h4 class="font-semibold text-[#f5ebe0] mb-1">100% Organic</h4>
+         <p class="text-sm text-[#a89080]">Pure, natural ingredients</p>
         </div>
        </div>
-      </div>
-      <div class="p-8 rounded-2xl" style="background: var(--color-surface);">
-       <form id="reservation-form" class="space-y-6">
-        <div class="grid md:grid-cols-2 gap-6">
-         <div><label class="block text-sm font-medium mb-2" style="color: var(--color-text);" for="res-name">Full Name</label> <input type="text" id="res-name" class="input-field w-full px-4 py-3 rounded-lg" style="color: var(--color-text);" placeholder="John Doe" required>
-         </div>
-         <div><label class="block text-sm font-medium mb-2" style="color: var(--color-text);" for="res-email">Email</label> <input type="email" id="res-email" class="input-field w-full px-4 py-3 rounded-lg" style="color: var(--color-text);" placeholder="john@example.com" required>
-         </div>
+       <div class="flex items-start gap-4">
+        <div class="w-12 h-12 rounded-full bg-[#d4a574]/20 flex items-center justify-center flex-shrink-0"><span class="text-2xl">👨‍🍳</span>
         </div>
-        <div class="grid md:grid-cols-2 gap-6">
-         <div><label class="block text-sm font-medium mb-2" style="color: var(--color-text);" for="res-phone">Phone</label> <input type="tel" id="res-phone" class="input-field w-full px-4 py-3 rounded-lg" style="color: var(--color-text);" placeholder="+1 (555) 000-0000" required>
-         </div>
-         <div><label class="block text-sm font-medium mb-2" style="color: var(--color-text);" for="res-guests">Guests</label> <select id="res-guests" class="input-field w-full px-4 py-3 rounded-lg" style="color: var(--color-text);" required> <option value="1">1 Person</option> <option value="2" selected>2 People</option> <option value="3">3 People</option> <option value="4">4 People</option> <option value="5">5 People</option> <option value="6">6+ People</option> </select>
-         </div>
+        <div>
+         <h4 class="font-semibold text-[#f5ebe0] mb-1">Expert Brewers</h4>
+         <p class="text-sm text-[#a89080]">Trained chai wallahs</p>
         </div>
-        <div class="grid md:grid-cols-2 gap-6">
-         <div><label class="block text-sm font-medium mb-2" style="color: var(--color-text);" for="res-date">Date</label> <input type="date" id="res-date" class="input-field w-full px-4 py-3 rounded-lg" style="color: var(--color-text);" required>
-         </div>
-         <div><label class="block text-sm font-medium mb-2" style="color: var(--color-text);" for="res-time">Time</label> <select id="res-time" class="input-field w-full px-4 py-3 rounded-lg" style="color: var(--color-text);" required> <option value="08:00">8:00 AM</option> <option value="09:00">9:00 AM</option> <option value="10:00">10:00 AM</option> <option value="11:00">11:00 AM</option> <option value="12:00">12:00 PM</option> <option value="13:00">1:00 PM</option> <option value="14:00">2:00 PM</option> <option value="15:00">3:00 PM</option> <option value="16:00">4:00 PM</option> <option value="17:00">5:00 PM</option> <option value="18:00">6:00 PM</option> <option value="19:00">7:00 PM</option> <option value="20:00">8:00 PM</option> </select>
-         </div>
+       </div>
+       <div class="flex items-start gap-4">
+        <div class="w-12 h-12 rounded-full bg-[#d4a574]/20 flex items-center justify-center flex-shrink-0"><span class="text-2xl">🏆</span>
         </div>
-        <div><label class="block text-sm font-medium mb-2" style="color: var(--color-text);" for="res-message">Special Requests</label> <textarea id="res-message" class="input-field w-full px-4 py-3 rounded-lg h-24 resize-none" style="color: var(--color-text);" placeholder="Any dietary requirements or special occasions..."></textarea>
-        </div><button type="submit" id="reservation-submit" class="btn-primary w-full py-4 rounded-lg font-semibold text-lg" style="color: var(--color-bg);"> <span id="reservation-btn-text">Reserve Now</span> <span id="reservation-spinner" class="hidden">
-          <svg class="animate-spin inline w-5 h-5 ml-2" fill="none" viewbox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" /> <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-          </svg></span> </button>
-       </form>
+        <div>
+         <h4 class="font-semibold text-[#f5ebe0] mb-1">Award Winning</h4>
+         <p class="text-sm text-[#a89080]">Best Chai in Delhi</p>
+        </div>
+       </div>
+       <div class="flex items-start gap-4">
+        <div class="w-12 h-12 rounded-full bg-[#d4a574]/20 flex items-center justify-center flex-shrink-0"><span class="text-2xl">❤️</span>
+        </div>
+        <div>
+         <h4 class="font-semibold text-[#f5ebe0] mb-1">Made with Love</h4>
+         <p class="text-sm text-[#a89080]">Every single cup</p>
+        </div>
+       </div>
       </div>
      </div>
     </div>
-   </section><!-- Contact Section -->
-   <section id="contact" class="py-24" style="background: var(--color-surface);">
-    <div class="max-w-7xl mx-auto px-6">
-     <div class="text-center mb-16">
-      <p class="text-sm tracking-[0.3em] uppercase mb-4" style="color: var(--color-primary);">Get in Touch</p>
-      <h2 class="font-display text-4xl md:text-5xl font-bold mb-6" style="color: var(--color-text);">Contact Us</h2>
+   </div>
+  </section><!-- Gallery Section -->
+  <section id="gallery" class="py-20 bg-[#0f0906]">
+   <div class="max-w-7xl mx-auto px-4">
+    <div class="text-center mb-16">
+     <p class="text-[#d4a574] font-medium mb-2 tracking-widest uppercase text-sm">Visual Journey</p>
+     <h2 class="font-display text-4xl md:text-5xl font-bold mb-4">Our Gallery</h2>
+     <p class="text-[#a89080] max-w-2xl mx-auto">A glimpse into our world of aromatic brews and cozy ambiance</p>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+     <div class="relative group overflow-hidden rounded-2xl"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&amp;h=400&amp;fit=crop" alt="Masala Chai" loading="lazy" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="w-full h-48 img-placeholder hidden text-xs">
+       <span class="text-2xl mb-1">📷</span> <span>Gallery 1</span>
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-t from-[#1a0f0a] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+       <p class="text-white font-medium">Masala Chai</p>
+      </div>
      </div>
-     <div class="grid md:grid-cols-3 gap-8">
-      <div class="text-center p-8 rounded-2xl card-hover" style="background: var(--color-bg);">
-       <div class="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style="background: var(--color-surface);">
-        <svg class="w-8 h-8" fill="var(--color-primary)" viewbox="0 0 24 24"><path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z" />
-        </svg>
-       </div>
-       <h3 class="font-display text-xl font-semibold mb-2" style="color: var(--color-text);">Visit Us</h3>
-       <p style="color: var(--color-secondary);">123 Coffee Lane<br>
-        Brew District, BC 12345</p>
+     <div class="relative group overflow-hidden rounded-2xl"><img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400&amp;h=400&amp;fit=crop" alt="Filter Coffee" loading="lazy" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="w-full h-48 img-placeholder hidden text-xs">
+       <span class="text-2xl mb-1">📷</span> <span>Gallery 2</span>
       </div>
-      <div class="text-center p-8 rounded-2xl card-hover" style="background: var(--color-bg);">
-       <div class="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style="background: var(--color-surface);">
-        <svg class="w-8 h-8" fill="var(--color-primary)" viewbox="0 0 24 24"><path d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z" />
-        </svg>
-       </div>
-       <h3 class="font-display text-xl font-semibold mb-2" style="color: var(--color-text);">Email Us</h3>
-       <p style="color: var(--color-secondary);">hello@artisanbrew.cafe<br>
-        reservations@artisanbrew.cafe</p>
+      <div class="absolute inset-0 bg-gradient-to-t from-[#1a0f0a] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+       <p class="text-white font-medium">Filter Coffee</p>
       </div>
-      <div class="text-center p-8 rounded-2xl card-hover" style="background: var(--color-bg);">
-       <div class="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style="background: var(--color-surface);">
-        <svg class="w-8 h-8" fill="var(--color-primary)" viewbox="0 0 24 24"><path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z" />
-        </svg>
-       </div>
-       <h3 class="font-display text-xl font-semibold mb-2" style="color: var(--color-text);">Call Us</h3>
-       <p style="color: var(--color-secondary);">+1 (555) 123-4567<br>
-        +1 (555) 987-6543</p>
+     </div>
+     <div class="relative group overflow-hidden rounded-2xl"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&amp;h=400&amp;fit=crop" alt="Cozy Interior" loading="lazy" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="w-full h-48 img-placeholder hidden text-xs">
+       <span class="text-2xl mb-1">📷</span> <span>Gallery 3</span>
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-t from-[#1a0f0a] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+       <p class="text-white font-medium">Our Space</p>
+      </div>
+     </div>
+     <div class="relative group overflow-hidden rounded-2xl"><img src="https://images.unsplash.com/photo-1558857563-b371033873b8?w=400&amp;h=400&amp;fit=crop" alt="Samosa" loading="lazy" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="w-full h-48 img-placeholder hidden text-xs">
+       <span class="text-2xl mb-1">📷</span> <span>Gallery 4</span>
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-t from-[#1a0f0a] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+       <p class="text-white font-medium">Fresh Samosas</p>
+      </div>
+     </div>
+     <div class="relative group overflow-hidden rounded-2xl"><img src="https://images.unsplash.com/photo-1606791405792-1004f1718d0c?w=400&amp;h=400&amp;fit=crop" alt="Kulhad Chai" loading="lazy" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="w-full h-48 img-placeholder hidden text-xs">
+       <span class="text-2xl mb-1">📷</span> <span>Gallery 5</span>
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-t from-[#1a0f0a] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+       <p class="text-white font-medium">Kulhad Chai</p>
+      </div>
+     </div>
+     <div class="relative group overflow-hidden rounded-2xl"><img src="https://images.unsplash.com/photo-1567337710282-00832b415979?w=400&amp;h=400&amp;fit=crop" alt="Sweet Treats" loading="lazy" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="w-full h-48 img-placeholder hidden text-xs">
+       <span class="text-2xl mb-1">📷</span> <span>Gallery 6</span>
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-t from-[#1a0f0a] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+       <p class="text-white font-medium">Sweet Treats</p>
+      </div>
+     </div>
+     <div class="relative group overflow-hidden rounded-2xl"><img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=400&amp;h=400&amp;fit=crop" alt="Coffee Art" loading="lazy" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="w-full h-48 img-placeholder hidden text-xs">
+       <span class="text-2xl mb-1">📷</span> <span>Gallery 7</span>
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-t from-[#1a0f0a] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+       <p class="text-white font-medium">Coffee Art</p>
+      </div>
+     </div>
+     <div class="relative group overflow-hidden rounded-2xl"><img src="https://images.unsplash.com/photo-1559925393-8be0ec4767c8?w=400&amp;h=400&amp;fit=crop" alt="Cafe Vibes" loading="lazy" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="w-full h-48 img-placeholder hidden text-xs">
+       <span class="text-2xl mb-1">📷</span> <span>Gallery 8</span>
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-t from-[#1a0f0a] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+       <p class="text-white font-medium">Cafe Vibes</p>
       </div>
      </div>
     </div>
-   </section><!-- Footer -->
-   <footer class="py-16" style="background: var(--color-bg); border-top: 1px solid rgba(201, 166, 107, 0.1);">
-    <div class="max-w-7xl mx-auto px-6">
-     <div class="grid md:grid-cols-4 gap-12 mb-12">
-      <div class="md:col-span-2">
-       <div class="flex items-center gap-3 mb-6">
-        <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background: var(--color-primary);">
-         <svg class="w-7 h-7" fill="#1a1512" viewbox="0 0 24 24"><path d="M2,21H20V19H2M20,8H18V5H20M20,3H4V13A4,4 0 0,0 8,17H14A4,4 0 0,0 18,13V10H20A2,2 0 0,0 22,8V5C22,3.89 21.1,3 20,3Z" />
-         </svg>
-        </div><span class="font-display text-2xl font-semibold" style="color: var(--color-primary);">Artisan Brew</span>
+   </div>
+  </section><!-- Testimonials Section -->
+  <section class="py-20 bg-gradient-to-b from-[#1a0f0a] to-[#0f0906]">
+   <div class="max-w-7xl mx-auto px-4">
+    <div class="text-center mb-16">
+     <p class="text-[#d4a574] font-medium mb-2 tracking-widest uppercase text-sm">Testimonials</p>
+     <h2 class="font-display text-4xl md:text-5xl font-bold mb-4">What People Say</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+     <div class="bg-[#1a0f0a] p-8 rounded-3xl border border-[#8b5a2b]/30 card-hover">
+      <div class="flex items-center gap-1 mb-4"><span class="text-[#d4a574]">★★★★★</span>
+      </div>
+      <p class="text-[#a89080] mb-6 italic">"Best masala chai in the city! The aroma itself is worth the visit. Been coming here for 15 years and it never disappoints."</p>
+      <div class="flex items-center gap-4">
+       <div class="w-12 h-12 rounded-full bg-[#d4a574]/20 flex items-center justify-center"><span class="text-xl">👨</span>
        </div>
-       <p class="mb-6 max-w-md" style="color: var(--color-secondary);">Crafting exceptional coffee experiences since 2009. Every cup is a journey through the world's finest beans.</p>
-       <div class="flex gap-4"><a href="#" class="w-10 h-10 rounded-full flex items-center justify-center transition-colors" style="background: var(--color-surface);">
-         <svg class="w-5 h-5" fill="var(--color-primary)" viewbox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96A10 10 0 0 0 22 12.06C22 6.53 17.5 2.04 12 2.04Z" />
-         </svg></a> <a href="#" class="w-10 h-10 rounded-full flex items-center justify-center transition-colors" style="background: var(--color-surface);">
-         <svg class="w-5 h-5" fill="var(--color-primary)" viewbox="0 0 24 24"><path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z" />
-         </svg></a> <a href="#" class="w-10 h-10 rounded-full flex items-center justify-center transition-colors" style="background: var(--color-surface);">
-         <svg class="w-5 h-5" fill="var(--color-primary)" viewbox="0 0 24 24"><path d="M22.46,6C21.69,6.35 20.86,6.58 20,6.69C20.88,6.16 21.56,5.32 21.88,4.31C21.05,4.81 20.13,5.16 19.16,5.36C18.37,4.5 17.26,4 16,4C13.65,4 11.73,5.92 11.73,8.29C11.73,8.63 11.77,8.96 11.84,9.27C8.28,9.09 5.11,7.38 3,4.79C2.63,5.42 2.42,6.16 2.42,6.94C2.42,8.43 3.17,9.75 4.33,10.5C3.62,10.5 2.96,10.3 2.38,10C2.38,10 2.38,10 2.38,10.03C2.38,12.11 3.86,13.85 5.82,14.24C5.46,14.34 5.08,14.39 4.69,14.39C4.42,14.39 4.15,14.36 3.89,14.31C4.43,16 6,17.26 7.89,17.29C6.43,18.45 4.58,19.13 2.56,19.13C2.22,19.13 1.88,19.11 1.54,19.07C3.44,20.29 5.7,21 8.12,21C16,21 20.33,14.46 20.33,8.79C20.33,8.6 20.33,8.42 20.32,8.23C21.16,7.63 21.88,6.87 22.46,6Z" />
-         </svg></a>
+       <div>
+        <p class="font-semibold text-[#f5ebe0]">Rajesh Kumar</p>
+        <p class="text-sm text-[#a89080]">Regular Customer</p>
        </div>
       </div>
-      <div>
-       <h4 class="font-display font-semibold mb-6" style="color: var(--color-text);">Quick Links</h4>
-       <ul class="space-y-3">
-        <li><a href="#menu" class="transition-colors hover:text-opacity-100" style="color: var(--color-secondary);">Our Menu</a></li>
-        <li><a href="#about" class="transition-colors hover:text-opacity-100" style="color: var(--color-secondary);">About Us</a></li>
-        <li><a href="#gallery" class="transition-colors hover:text-opacity-100" style="color: var(--color-secondary);">Gallery</a></li>
-        <li><a href="#reservation" class="transition-colors hover:text-opacity-100" style="color: var(--color-secondary);">Reservations</a></li>
-       </ul>
+     </div>
+     <div class="bg-[#1a0f0a] p-8 rounded-3xl border border-[#8b5a2b]/30 card-hover">
+      <div class="flex items-center gap-1 mb-4"><span class="text-[#d4a574]">★★★★★</span>
       </div>
-      <div>
-       <h4 class="font-display font-semibold mb-6" style="color: var(--color-text);">Opening Hours</h4>
-       <ul class="space-y-3" style="color: var(--color-secondary);">
-        <li>Monday - Friday<br><span style="color: var(--color-primary);">7:00 AM - 9:00 PM</span></li>
-        <li>Saturday - Sunday<br><span style="color: var(--color-primary);">8:00 AM - 10:00 PM</span></li>
-       </ul>
+      <p class="text-[#a89080] mb-6 italic">"The filter coffee here reminds me of my grandmother's recipe. Authentic South Indian taste with perfect froth. Absolutely divine!"</p>
+      <div class="flex items-center gap-4">
+       <div class="w-12 h-12 rounded-full bg-[#d4a574]/20 flex items-center justify-center"><span class="text-xl">👩</span>
+       </div>
+       <div>
+        <p class="font-semibold text-[#f5ebe0]">Priya Sharma</p>
+        <p class="text-sm text-[#a89080]">Food Blogger</p>
+       </div>
       </div>
      </div>
-     <div class="pt-8 text-center" style="border-top: 1px solid rgba(201, 166, 107, 0.1);">
-      <p style="color: var(--color-secondary);">© 2024 Artisan Brew Café. All rights reserved. Crafted with ☕ and love.</p>
+     <div class="bg-[#1a0f0a] p-8 rounded-3xl border border-[#8b5a2b]/30 card-hover">
+      <div class="flex items-center gap-1 mb-4"><span class="text-[#d4a574]">★★★★★</span>
+      </div>
+      <p class="text-[#a89080] mb-6 italic">"Perfect place for evening chai with hot samosas. The ambiance is so warm and welcoming. A true gem in the heart of the city!"</p>
+      <div class="flex items-center gap-4">
+       <div class="w-12 h-12 rounded-full bg-[#d4a574]/20 flex items-center justify-center"><span class="text-xl">👨</span>
+       </div>
+       <div>
+        <p class="font-semibold text-[#f5ebe0]">Amit Verma</p>
+        <p class="text-sm text-[#a89080]">Local Resident</p>
+       </div>
+      </div>
      </div>
     </div>
-   </footer><!-- Shopping Cart Modal -->
-   <div id="cart-modal" class="fixed inset-0 z-50 hidden">
-    <div class="modal-backdrop absolute inset-0" id="cart-backdrop"></div>
-    <div class="absolute right-0 top-0 bottom-0 w-full max-w-md p-6 overflow-auto" style="background: var(--color-surface);">
-     <div class="flex items-center justify-between mb-8">
-      <h3 class="font-display text-2xl font-bold" style="color: var(--color-text);">Your Cart</h3><button id="cart-close" class="p-2 rounded-full" style="background: var(--color-bg);">
-       <svg class="w-6 h-6" fill="var(--color-text)" viewbox="0 0 24 24"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
-       </svg></button>
+   </div>
+  </section><!-- Contact Section -->
+  <section id="contact" class="py-20 bg-[#0f0906] pattern-bg">
+   <div class="max-w-7xl mx-auto px-4">
+    <div class="grid lg:grid-cols-2 gap-16">
+     <div>
+      <p class="text-[#d4a574] font-medium mb-2 tracking-widest uppercase text-sm">Get In Touch</p>
+      <h2 class="font-display text-4xl md:text-5xl font-bold mb-6">Visit Us Today</h2>
+      <p class="text-[#a89080] mb-8">Come experience the warmth of our chai and the richness of our coffee. We're waiting to serve you!</p>
+      <div class="space-y-6">
+       <div class="flex items-start gap-4">
+        <div class="w-14 h-14 rounded-2xl bg-[#d4a574]/20 flex items-center justify-center flex-shrink-0"><span class="text-2xl">📍</span>
+        </div>
+        <div>
+         <h4 class="font-semibold text-[#f5ebe0] mb-1">Address</h4>
+         <p id="contact-address" class="text-[#a89080]">42, Chandni Chowk Road,<br>
+           Old Delhi, Delhi 110006</p>
+        </div>
+       </div>
+       <div class="flex items-start gap-4">
+        <div class="w-14 h-14 rounded-2xl bg-[#d4a574]/20 flex items-center justify-center flex-shrink-0"><span class="text-2xl">📞</span>
+        </div>
+        <div>
+         <h4 class="font-semibold text-[#f5ebe0] mb-1">Phone</h4>
+         <p id="contact-phone" class="text-[#a89080]">+91 98765 43210</p>
+        </div>
+       </div>
+       <div class="flex items-start gap-4">
+        <div class="w-14 h-14 rounded-2xl bg-[#d4a574]/20 flex items-center justify-center flex-shrink-0"><span class="text-2xl">🕐</span>
+        </div>
+        <div>
+         <h4 class="font-semibold text-[#f5ebe0] mb-1">Opening Hours</h4>
+         <p class="text-[#a89080]">Mon - Sun: 6:00 AM - 11:00 PM<br>
+           Open all days including holidays</p>
+        </div>
+       </div>
+      </div>
+      <div class="flex gap-4 mt-8"><a href="#" class="w-12 h-12 rounded-full bg-[#2d1810] flex items-center justify-center text-[#d4a574] hover:bg-[#d4a574] hover:text-[#1a0f0a] transition-all"> <span>📘</span> </a> <a href="#" class="w-12 h-12 rounded-full bg-[#2d1810] flex items-center justify-center text-[#d4a574] hover:bg-[#d4a574] hover:text-[#1a0f0a] transition-all"> <span>📸</span> </a> <a href="#" class="w-12 h-12 rounded-full bg-[#2d1810] flex items-center justify-center text-[#d4a574] hover:bg-[#d4a574] hover:text-[#1a0f0a] transition-all"> <span>🐦</span> </a>
+      </div>
      </div>
-     <div id="cart-items" class="space-y-4 mb-8"><!-- Cart items will be populated here -->
-     </div>
-     <div id="cart-empty" class="text-center py-12">
-      <svg class="w-16 h-16 mx-auto mb-4 opacity-50" fill="var(--color-secondary)" viewbox="0 0 24 24"><path d="M17,18A2,2 0 0,1 19,20A2,2 0 0,1 17,22C15.89,22 15,21.1 15,20C15,18.89 15.89,18 17,18M1,2H4.27L5.21,4H20A1,1 0 0,1 21,5C21,5.17 20.95,5.34 20.88,5.5L17.3,11.97C16.96,12.58 16.3,13 15.55,13H8.1L7.2,14.63L7.17,14.75A0.25,0.25 0 0,0 7.42,15H19V17H7C5.89,17 5,16.1 5,15C5,14.65 5.09,14.32 5.24,14.04L6.6,11.59L3,4H1V2M7,18A2,2 0 0,1 9,20A2,2 0 0,1 7,22C5.89,22 5,21.1 5,20C5,18.89 5.89,18 7,18M16,11L18.78,6H6.14L8.5,11H16Z" />
-      </svg>
-      <p style="color: var(--color-secondary);">Your cart is empty</p>
-     </div>
-     <div id="cart-footer" class="hidden pt-6" style="border-top: 1px solid rgba(201, 166, 107, 0.2);">
-      <div class="flex justify-between mb-4"><span class="font-semibold" style="color: var(--color-text);">Total</span> <span id="cart-total" class="font-display text-xl font-bold" style="color: var(--color-primary);">$0.00</span>
-      </div><button id="checkout-btn" class="btn-primary w-full py-4 rounded-lg font-semibold" style="color: var(--color-bg);">Proceed to Checkout</button>
-      <p class="text-xs text-center mt-3" style="color: var(--color-secondary);">Demo - No actual payment processed</p>
+     <div class="bg-[#1a0f0a] p-8 md:p-10 rounded-3xl border border-[#8b5a2b]/30">
+      <h3 class="font-display text-2xl font-bold mb-6">Send us a Message</h3>
+      <form id="contact-form" class="space-y-6">
+       <div><label for="name" class="block text-sm font-medium text-[#a89080] mb-2">Your Name</label> <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-xl bg-[#0f0906] border border-[#8b5a2b]/30 text-[#f5ebe0] placeholder-[#6b5b50] focus:outline-none focus:border-[#d4a574] transition-colors" placeholder="Enter your name">
+       </div>
+       <div><label for="email" class="block text-sm font-medium text-[#a89080] mb-2">Email Address</label> <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-xl bg-[#0f0906] border border-[#8b5a2b]/30 text-[#f5ebe0] placeholder-[#6b5b50] focus:outline-none focus:border-[#d4a574] transition-colors" placeholder="Enter your email">
+       </div>
+       <div><label for="message" class="block text-sm font-medium text-[#a89080] mb-2">Your Message</label> <textarea id="message" name="message" rows="4" required class="w-full px-4 py-3 rounded-xl bg-[#0f0906] border border-[#8b5a2b]/30 text-[#f5ebe0] placeholder-[#6b5b50] focus:outline-none focus:border-[#d4a574] transition-colors resize-none" placeholder="Write your message..."></textarea>
+       </div><button type="submit" class="w-full btn-primary py-4 rounded-xl text-white font-semibold text-lg"> Send Message </button>
+      </form>
+      <div id="form-success" class="hidden mt-6 p-4 bg-green-900/30 border border-green-700 rounded-xl text-green-400 text-center">
+       ✓ Thank you! Your message has been sent successfully.
+      </div>
      </div>
     </div>
-   </div><!-- Login Modal -->
-   <div id="login-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
-    <div class="modal-backdrop absolute inset-0" id="login-backdrop"></div>
-    <div class="relative w-full max-w-md p-8 rounded-2xl" style="background: var(--color-surface);"><button id="login-close" class="absolute top-4 right-4 p-2 rounded-full" style="background: var(--color-bg);">
-      <svg class="w-5 h-5" fill="var(--color-text)" viewbox="0 0 24 24"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
-      </svg></button>
-     <div class="text-center mb-8">
-      <div class="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style="background: var(--color-primary);">
-       <svg class="w-8 h-8" fill="#1a1512" viewbox="0 0 24 24"><path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" />
-       </svg>
+   </div>
+  </section><!-- Footer -->
+  <footer class="bg-[#1a0f0a] border-t border-[#8b5a2b]/30 py-12">
+   <div class="max-w-7xl mx-auto px-4">
+    <div class="grid md:grid-cols-4 gap-8 mb-8">
+     <div class="md:col-span-2">
+      <div class="flex items-center gap-3 mb-4">
+       <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#d4a574] to-[#8b5a2b] flex items-center justify-center"><span class="text-2xl">☕</span>
+       </div>
+       <div>
+        <h3 id="footer-shop-name" class="font-display text-xl font-bold text-[#d4a574]">Chai &amp; Coffee House</h3>
+        <p class="text-xs text-[#a89080]">Since 1985</p>
+       </div>
       </div>
-      <h3 class="font-display text-2xl font-bold" style="color: var(--color-text);">Welcome Back</h3>
-      <p class="text-sm mt-2" style="color: var(--color-secondary);">Sign in to your account</p>
+      <p class="text-[#a89080] max-w-md">Serving authentic Indian chai and coffee with love for over three decades. Experience the taste of tradition.</p>
      </div>
-     <form id="login-form" class="space-y-6">
-      <div><label class="block text-sm font-medium mb-2" style="color: var(--color-text);" for="login-email">Email</label> <input type="email" id="login-email" class="input-field w-full px-4 py-3 rounded-lg" style="color: var(--color-text);" placeholder="your@email.com" required>
-      </div>
-      <div><label class="block text-sm font-medium mb-2" style="color: var(--color-text);" for="login-password">Password</label> <input type="password" id="login-password" class="input-field w-full px-4 py-3 rounded-lg" style="color: var(--color-text);" placeholder="••••••••" required>
-       <p class="text-xs mt-2 text-center" style="color: var(--color-secondary);">Demo: Any credentials work</p>
-      </div><button type="submit" id="login-submit" class="btn-primary w-full py-4 rounded-lg font-semibold" style="color: var(--color-bg);"> Sign In </button>
-     </form>
-     <p class="text-center mt-6" style="color: var(--color-secondary);">Don't have an account? <a href="#" id="show-signup" class="font-medium" style="color: var(--color-primary);">Sign Up</a></p>
+     <div>
+      <h4 class="font-semibold text-[#f5ebe0] mb-4">Quick Links</h4>
+      <ul class="space-y-2">
+       <li><a href="#home" class="text-[#a89080] hover:text-[#d4a574] transition-colors">Home</a></li>
+       <li><a href="#menu" class="text-[#a89080] hover:text-[#d4a574] transition-colors">Menu</a></li>
+       <li><a href="#about" class="text-[#a89080] hover:text-[#d4a574] transition-colors">About Us</a></li>
+       <li><a href="#contact" class="text-[#a89080] hover:text-[#d4a574] transition-colors">Contact</a></li>
+      </ul>
+     </div>
+     <div>
+      <h4 class="font-semibold text-[#f5ebe0] mb-4">Contact Info</h4>
+      <ul class="space-y-2 text-[#a89080]">
+       <li>📍 Old Delhi, Delhi</li>
+       <li>📞 +91 98765 43210</li>
+       <li>✉️ info@chaicoffeehouse.in</li>
+      </ul>
+     </div>
     </div>
-   </div><!-- Toast Notification -->
-   <div id="toast" class="fixed bottom-6 right-6 z-50 hidden">
-    <div class="flex items-center gap-3 px-6 py-4 rounded-xl shadow-2xl" style="background: var(--color-primary);">
-     <svg id="toast-icon" class="w-6 h-6" fill="#1a1512" viewbox="0 0 24 24"><path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
-     </svg><span id="toast-message" class="font-medium" style="color: var(--color-bg);">Success!</span>
+    <div class="border-t border-[#8b5a2b]/30 pt-8 text-center text-[#a89080]">
+     <p>© 2024 Chai &amp; Coffee House. All rights reserved. Made with ❤️ in India</p>
+    </div>
+   </div>
+  </footer><!-- Cart Modal -->
+  <div id="cart-modal" class="hidden fixed inset-0 bg-black/70 z-40 flex items-center justify-center p-4 overflow-y-auto">
+   <div class="bg-[#1a0f0a] rounded-3xl border border-[#8b5a2b]/30 max-w-2xl w-full my-8">
+    <div class="flex items-center justify-between p-6 border-b border-[#8b5a2b]/30">
+     <h2 class="font-display text-3xl font-bold text-[#d4a574]">Shopping Cart 🛒</h2><button id="close-cart" class="text-[#d4a574] text-3xl hover:text-[#f5ebe0] transition-colors">×</button>
+    </div>
+    <div id="cart-items-container" class="p-6 max-h-96 overflow-y-auto">
+     <div id="empty-cart" class="text-center py-12 text-[#a89080]">
+      <p class="text-xl mb-2">Your cart is empty</p>
+      <p>Add some delicious items to get started!</p>
+     </div>
+     <div id="cart-items" class="space-y-4"></div>
+    </div>
+    <div class="border-t border-[#8b5a2b]/30 p-6 space-y-4">
+     <div class="flex justify-between items-center text-lg"><span class="text-[#a89080]">Subtotal:</span> <span id="subtotal" class="font-display font-bold text-[#d4a574]">₹0</span>
+     </div>
+     <div class="flex justify-between items-center text-lg"><span class="text-[#a89080]">Delivery:</span> <span id="delivery-charge" class="font-display font-bold text-[#d4a574]">₹50</span>
+     </div>
+     <div class="border-t border-[#8b5a2b]/30 pt-4 flex justify-between items-center text-2xl"><span class="text-[#f5ebe0] font-bold">Total:</span> <span id="total" class="font-display font-bold text-[#d4a574]">₹0</span>
+     </div>
+     <div class="space-y-3"><input type="text" id="customer-name" placeholder="Your Name" class="w-full px-4 py-2 rounded-xl bg-[#0f0906] border border-[#8b5a2b]/30 text-[#f5ebe0] placeholder-[#6b5b50] focus:outline-none focus:border-[#d4a574]"> <input type="tel" id="customer-phone" placeholder="Phone Number" class="w-full px-4 py-2 rounded-xl bg-[#0f0906] border border-[#8b5a2b]/30 text-[#f5ebe0] placeholder-[#6b5b50] focus:outline-none focus:border-[#d4a574]"> <button id="place-order-btn" class="w-full btn-primary py-3 rounded-xl text-white font-semibold text-lg"> Place Order </button> <button id="clear-cart-btn" class="w-full px-4 py-3 rounded-xl bg-[#2d1810] text-[#d4a574] font-semibold hover:bg-red-900/30 transition-all"> Clear Cart </button>
+     </div>
+     <div id="order-success" class="hidden p-4 bg-green-900/30 border border-green-700 rounded-xl text-green-400 text-center">
+      ✓ Order placed successfully! Our team will contact you soon.
+     </div>
+     <div id="order-error" class="hidden p-4 bg-red-900/30 border border-red-700 rounded-xl text-red-400 text-center">
+      ✗ Please fill in all details correctly.
+     </div>
+    </div>
+   </div>
+  </div><!-- Orders List Modal -->
+  <div id="orders-modal" class="hidden fixed inset-0 bg-black/70 z-40 flex items-center justify-center p-4 overflow-y-auto">
+   <div class="bg-[#1a0f0a] rounded-3xl border border-[#8b5a2b]/30 max-w-3xl w-full my-8">
+    <div class="flex items-center justify-between p-6 border-b border-[#8b5a2b]/30">
+     <h2 class="font-display text-3xl font-bold text-[#d4a574]">Your Orders 📋</h2><button id="close-orders" class="text-[#d4a574] text-3xl hover:text-[#f5ebe0] transition-colors">×</button>
+    </div>
+    <div id="orders-container" class="p-6 max-h-96 overflow-y-auto">
+     <div id="empty-orders" class="text-center py-12 text-[#a89080]">
+      <p class="text-xl mb-2">No orders yet</p>
+      <p>Start by adding items to your cart!</p>
+     </div>
+     <div id="orders-list" class="space-y-4"></div>
     </div>
    </div>
   </div>
   <script>
-    // Menu Data
-    const menuData = {
-      coffee: [
-        { id: 'esp', name: 'Espresso', desc: 'Rich and bold single shot', price: 3.50, icon: '☕' },
-        { id: 'amer', name: 'Americano', desc: 'Espresso with hot water', price: 4.00, icon: '☕' },
-        { id: 'cap', name: 'Cappuccino', desc: 'Espresso, steamed milk, foam', price: 4.50, icon: '☕' },
-        { id: 'latte', name: 'Café Latte', desc: 'Smooth espresso with milk', price: 5.00, icon: '☕' },
-        { id: 'flat', name: 'Flat White', desc: 'Velvety microfoam espresso', price: 4.75, icon: '☕' },
-        { id: 'mocha', name: 'Mocha', desc: 'Chocolate espresso delight', price: 5.50, icon: '☕' }
-      ],
-      specialty: [
-        { id: 'cold', name: 'Cold Brew', desc: '24-hour steeped perfection', price: 5.00, icon: '🧊' },
-        { id: 'aff', name: 'Affogato', desc: 'Espresso over gelato', price: 6.50, icon: '🍨' },
-        { id: 'matcha', name: 'Matcha Latte', desc: 'Ceremonial grade matcha', price: 5.50, icon: '🍵' },
-        { id: 'chai', name: 'Chai Latte', desc: 'Spiced tea with milk', price: 5.00, icon: '🍵' },
-        { id: 'gold', name: 'Golden Latte', desc: 'Turmeric wellness drink', price: 5.50, icon: '✨' },
-        { id: 'rose', name: 'Rose Latte', desc: 'Floral espresso creation', price: 6.00, icon: '🌹' }
-      ],
-      pastries: [
-        { id: 'croi', name: 'Butter Croissant', desc: 'Flaky French classic', price: 4.00, icon: '🥐' },
-        { id: 'pain', name: 'Pain au Chocolat', desc: 'Chocolate-filled pastry', price: 4.50, icon: '🍫' },
-        { id: 'muff', name: 'Blueberry Muffin', desc: 'Fresh-baked daily', price: 3.50, icon: '🫐' },
-        { id: 'cin', name: 'Cinnamon Roll', desc: 'Warm with cream frosting', price: 4.50, icon: '🍩' },
-        { id: 'scone', name: 'Cranberry Scone', desc: 'British tea companion', price: 3.75, icon: '🍪' },
-        { id: 'tart', name: 'Fruit Tart', desc: 'Seasonal fresh fruits', price: 5.50, icon: '🥧' }
-      ],
-      breakfast: [
-        { id: 'avo', name: 'Avocado Toast', desc: 'Sourdough with toppings', price: 9.00, icon: '🥑' },
-        { id: 'egg', name: 'Eggs Benedict', desc: 'Classic hollandaise', price: 12.00, icon: '🍳' },
-        { id: 'acai', name: 'Açaí Bowl', desc: 'Superfood breakfast', price: 11.00, icon: '🫐' },
-        { id: 'gran', name: 'Granola Parfait', desc: 'Yogurt with honey', price: 7.50, icon: '🥣' },
-        { id: 'pan', name: 'Pancake Stack', desc: 'Maple syrup & berries', price: 10.00, icon: '🥞' },
-        { id: 'oat', name: 'Overnight Oats', desc: 'Chia & almond milk', price: 6.50, icon: '🥛' }
-      ]
-    };
-
-    // State
-    let cart = [];
-    let currentCategory = 'coffee';
-    let reservations = [];
-    let isLoggedIn = false;
-    let currentUser = null;
-
-    // Default Config
+    // Default configuration
     const defaultConfig = {
-      cafe_name: 'Artisan Brew',
-      hero_tagline: 'Where every cup tells a story of passion, craftsmanship, and the finest beans from around the world.',
-      about_title: 'Crafting Moments Since 2009',
-      background_color: '#1a1512',
-      surface_color: '#2d2520',
-      text_color: '#f5f0eb',
-      primary_color: '#c9a66b',
-      secondary_color: '#8b7355',
-      font_family: 'Playfair Display',
+      shop_name: "Chai & Coffee House",
+      tagline: "Experience the authentic taste of India with our traditional chai and premium coffee blends",
+      about_text: "Started in 1985 by Sharma Ji in the heart of Old Delhi, our coffee house has been serving the finest chai and coffee for over three decades. We source our tea leaves from Assam and Darjeeling, and our coffee beans from the misty hills of Coorg.",
+      address: "42, Chandni Chowk Road,\nOld Delhi, Delhi 110006",
+      phone: "+91 98765 43210",
+      background_color: "#0f0906",
+      surface_color: "#1a0f0a",
+      text_color: "#f5ebe0",
+      primary_action_color: "#d4a574",
+      secondary_color: "#a89080",
+      font_family: "Poppins",
       font_size: 16
     };
 
-    // Element SDK Initialization
-    if (window.elementSdk) {
-      window.elementSdk.init({
-        defaultConfig,
-        onConfigChange: async (config) => {
-          // Update text content
-          const navCafeName = document.getElementById('nav-cafe-name');
-          if (navCafeName) navCafeName.textContent = config.cafe_name || defaultConfig.cafe_name;
-          
-          const heroTitle = document.getElementById('hero-title');
-          if (heroTitle) heroTitle.textContent = (config.cafe_name || defaultConfig.cafe_name) + ' Café';
-          
-          const heroTagline = document.getElementById('hero-tagline');
-          if (heroTagline) heroTagline.textContent = config.hero_tagline || defaultConfig.hero_tagline;
-          
-          const aboutTitle = document.getElementById('about-title');
-          if (aboutTitle) aboutTitle.textContent = config.about_title || defaultConfig.about_title;
-          
-          // Update colors
-          document.documentElement.style.setProperty('--color-bg', config.background_color || defaultConfig.background_color);
-          document.documentElement.style.setProperty('--color-surface', config.surface_color || defaultConfig.surface_color);
-          document.documentElement.style.setProperty('--color-text', config.text_color || defaultConfig.text_color);
-          document.documentElement.style.setProperty('--color-primary', config.primary_color || defaultConfig.primary_color);
-          document.documentElement.style.setProperty('--color-secondary', config.secondary_color || defaultConfig.secondary_color);
-          
-          // Update font
-          const fontFamily = config.font_family || defaultConfig.font_family;
-          document.querySelectorAll('.font-display').forEach(el => {
-            el.style.fontFamily = `${fontFamily}, serif`;
-          });
-          
-          // Update font size
-          const baseSize = config.font_size || defaultConfig.font_size;
-          document.documentElement.style.fontSize = `${baseSize}px`;
-        },
-        mapToCapabilities: (config) => ({
-          recolorables: [
-            {
-              get: () => config.background_color || defaultConfig.background_color,
-              set: (value) => { config.background_color = value; window.elementSdk.setConfig({ background_color: value }); }
-            },
-            {
-              get: () => config.surface_color || defaultConfig.surface_color,
-              set: (value) => { config.surface_color = value; window.elementSdk.setConfig({ surface_color: value }); }
-            },
-            {
-              get: () => config.text_color || defaultConfig.text_color,
-              set: (value) => { config.text_color = value; window.elementSdk.setConfig({ text_color: value }); }
-            },
-            {
-              get: () => config.primary_color || defaultConfig.primary_color,
-              set: (value) => { config.primary_color = value; window.elementSdk.setConfig({ primary_color: value }); }
-            },
-            {
-              get: () => config.secondary_color || defaultConfig.secondary_color,
-              set: (value) => { config.secondary_color = value; window.elementSdk.setConfig({ secondary_color: value }); }
-            }
-          ],
-          borderables: [],
-          fontEditable: {
-            get: () => config.font_family || defaultConfig.font_family,
-            set: (value) => { config.font_family = value; window.elementSdk.setConfig({ font_family: value }); }
-          },
-          fontSizeable: {
-            get: () => config.font_size || defaultConfig.font_size,
-            set: (value) => { config.font_size = value; window.elementSdk.setConfig({ font_size: value }); }
-          }
-        }),
-        mapToEditPanelValues: (config) => new Map([
-          ['cafe_name', config.cafe_name || defaultConfig.cafe_name],
-          ['hero_tagline', config.hero_tagline || defaultConfig.hero_tagline],
-          ['about_title', config.about_title || defaultConfig.about_title]
-        ])
-      });
-    }
-
-    // Data SDK for Reservations
-    const dataHandler = {
-      onDataChanged(data) {
-        reservations = data;
-        // Update UI if showing reservations
-      }
+    // Menu data
+    const menuData = {
+      chai: [
+        { name: "Masala Chai", price: "30", description: "Classic spiced tea with cardamom, ginger & cinnamon", emoji: "🍵", popular: true },
+        { name: "Kulhad Chai", price: "40", description: "Traditional clay pot chai with earthy aroma", emoji: "🫖", popular: true },
+        { name: "Adrak Chai", price: "35", description: "Strong ginger tea for cold evenings", emoji: "🍵" },
+        { name: "Elaichi Chai", price: "35", description: "Fragrant cardamom infused tea", emoji: "🍵" },
+        { name: "Kashmiri Kahwa", price: "60", description: "Saffron, almonds & aromatic spices", emoji: "✨", popular: true },
+        { name: "Tandoori Chai", price: "50", description: "Smoky flavored chai in hot kulhad", emoji: "🔥" }
+      ],
+      coffee: [
+        { name: "Filter Coffee", price: "45", description: "South Indian style with brass tumbler", emoji: "☕", popular: true },
+        { name: "Cold Coffee", price: "70", description: "Chilled coffee with ice cream", emoji: "🧊" },
+        { name: "Beaten Coffee", price: "50", description: "Whipped instant coffee, creamy delight", emoji: "☕", popular: true },
+        { name: "Black Coffee", price: "40", description: "Strong & bold, no milk", emoji: "☕" },
+        { name: "Cappuccino", price: "80", description: "Italian style with foam art", emoji: "☕" },
+        { name: "Mocha", price: "90", description: "Coffee with chocolate indulgence", emoji: "🍫" }
+      ],
+      snacks: [
+        { name: "Samosa", price: "20", description: "Crispy potato filled pastry", emoji: "🥟", popular: true },
+        { name: "Bread Pakora", price: "25", description: "Stuffed bread fritters", emoji: "🍞" },
+        { name: "Vada Pav", price: "30", description: "Mumbai style potato burger", emoji: "🍔", popular: true },
+        { name: "Kachori", price: "25", description: "Spiced lentil filled puffs", emoji: "🥮" },
+        { name: "Mathri", price: "40", description: "Crispy savory crackers (plate)", emoji: "🍘" },
+        { name: "Paneer Pakora", price: "60", description: "Cottage cheese fritters", emoji: "🧀" }
+      ],
+      desserts: [
+        { name: "Gulab Jamun", price: "40", description: "Sweet milk dumplings in syrup", emoji: "🍩", popular: true },
+        { name: "Jalebi", price: "50", description: "Crispy sweet spirals", emoji: "🥨", popular: true },
+        { name: "Rabri", price: "60", description: "Thickened sweetened milk", emoji: "🥛" },
+        { name: "Kheer", price: "50", description: "Creamy rice pudding", emoji: "🍚" },
+        { name: "Gajar Halwa", price: "70", description: "Warm carrot pudding", emoji: "🥕", popular: true },
+        { name: "Rasmalai", price: "60", description: "Soft paneer in sweet milk", emoji: "🍮" }
+      ]
     };
 
-    if (window.dataSdk) {
-      window.dataSdk.init(dataHandler);
-    }
+    let currentCategory = 'chai';
 
-    // Utility Functions
-    function showToast(message, success = true) {
-      const toast = document.getElementById('toast');
-      const toastMessage = document.getElementById('toast-message');
-      const toastIcon = document.getElementById('toast-icon');
-      
-      toastMessage.textContent = message;
-      toastIcon.innerHTML = success 
-        ? '<path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/>'
-        : '<path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/>';
-      
-      toast.classList.remove('hidden');
-      toast.classList.add('toast');
-      
-      setTimeout(() => {
-        toast.classList.add('hidden');
-      }, 3000);
-    }
-
-    function formatPrice(price) {
-      return '$' + price.toFixed(2);
-    }
-
-    // Menu Functions
+    // Render menu items
     function renderMenu(category) {
       const grid = document.getElementById('menu-grid');
       const items = menuData[category];
-      
-      grid.innerHTML = items.map(item => `
-        <div class="menu-item p-6 rounded-2xl card-hover" style="background: var(--color-bg);">
-          <div class="flex items-start justify-between mb-4">
-            <span class="text-4xl">${item.icon}</span>
-            <span class="font-display text-xl font-bold" style="color: var(--color-primary);">${formatPrice(item.price)}</span>
+      grid.innerHTML = items.map((item, index) => `
+        <div class="menu-item bg-[#1a0f0a] p-6 rounded-2xl border border-[#8b5a2b]/30 card-hover" style="animation-delay: ${index * 0.1}s">
+          <div class="flex justify-between items-start mb-4">
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#d4a574]/20 to-[#8b5a2b]/20 flex items-center justify-center text-3xl">
+              ${item.emoji}
+            </div>
+            ${item.popular ? '<span class="px-3 py-1 bg-[#d4a574] text-[#1a0f0a] text-xs font-semibold rounded-full">Popular</span>' : ''}
           </div>
-          <h3 class="font-display text-xl font-semibold mb-2" style="color: var(--color-text);">${item.name}</h3>
-          <p class="text-sm mb-4" style="color: var(--color-secondary);">${item.desc}</p>
-          <button onclick="addToCart('${item.id}', '${category}')" class="btn-primary w-full py-3 rounded-lg font-medium text-sm" style="color: var(--color-bg);">
-            Add to Cart
-          </button>
+          <h3 class="font-display text-xl font-bold text-[#f5ebe0] mb-2">${item.name}</h3>
+          <p class="text-[#a89080] text-sm mb-4">${item.description}</p>
+          <div class="flex justify-between items-center">
+            <span class="font-display text-2xl font-bold text-[#d4a574]">₹${item.price}</span>
+            <button class="px-4 py-2 bg-[#2d1810] text-[#d4a574] rounded-full text-sm font-medium hover:bg-[#d4a574] hover:text-[#1a0f0a] transition-all add-to-cart-btn" data-item-name="${item.name}" data-item-price="${item.price}" data-item-emoji="${item.emoji}">
+              Add +
+            </button>
+          </div>
         </div>
       `).join('');
     }
 
-    function switchCategory(category) {
-      currentCategory = category;
-      renderMenu(category);
-      
-      document.querySelectorAll('.menu-category-btn').forEach(btn => {
-        if (btn.dataset.category === category) {
-          btn.style.background = 'var(--color-primary)';
-          btn.style.color = 'var(--color-bg)';
-          btn.style.border = 'none';
-        } else {
-          btn.style.background = 'transparent';
-          btn.style.color = 'var(--color-primary)';
-          btn.style.border = '1px solid var(--color-primary)';
-        }
+    // Initialize menu tabs
+    function initializeMenuTabs() {
+      document.querySelectorAll('.menu-tab').forEach(tab => {
+        tab.addEventListener('click', (e) => {
+          document.querySelectorAll('.menu-tab').forEach(t => {
+            t.classList.remove('bg-[#d4a574]', 'text-[#1a0f0a]');
+            t.classList.add('bg-[#2d1810]', 'text-[#f5ebe0]');
+          });
+          e.target.classList.remove('bg-[#2d1810]', 'text-[#f5ebe0]');
+          e.target.classList.add('bg-[#d4a574]', 'text-[#1a0f0a]');
+          currentCategory = e.target.dataset.category;
+          renderMenu(currentCategory);
+        });
       });
     }
 
-    // Cart Functions
-    function addToCart(itemId, category) {
-      const item = menuData[category].find(i => i.id === itemId);
-      if (!item) return;
-      
-      const existing = cart.find(c => c.id === itemId);
-      if (existing) {
-        existing.quantity++;
-      } else {
-        cart.push({ ...item, quantity: 1 });
+    // Mobile menu toggle
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Contact form handling
+    document.getElementById('contact-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      document.getElementById('form-success').classList.remove('hidden');
+      e.target.reset();
+      setTimeout(() => {
+        document.getElementById('form-success').classList.add('hidden');
+      }, 5000);
+    });
+
+    // ========== CART SYSTEM ==========
+    let cart = [];
+
+    // Initialize Data SDK
+    async function initializeDataSDK() {
+      const dataHandler = {
+        onDataChanged(data) {
+          renderOrdersList(data);
+        }
+      };
+      const result = await window.dataSdk.init(dataHandler);
+      if (!result.isOk) {
+        console.error('Failed to initialize data SDK');
       }
-      
-      updateCartUI();
-      showToast(`${item.name} added to cart!`);
     }
 
-    function removeFromCart(itemId) {
-      cart = cart.filter(item => item.id !== itemId);
-      updateCartUI();
-    }
-
-    function updateCartQuantity(itemId, delta) {
-      const item = cart.find(c => c.id === itemId);
-      if (!item) return;
-      
-      item.quantity += delta;
-      if (item.quantity <= 0) {
-        removeFromCart(itemId);
+    // Add to cart
+    function addToCart(itemName, itemPrice, itemEmoji) {
+      const existingItem = cart.find(item => item.name === itemName);
+      if (existingItem) {
+        existingItem.quantity += 1;
       } else {
-        updateCartUI();
+        cart.push({
+          name: itemName,
+          price: parseInt(itemPrice),
+          emoji: itemEmoji,
+          quantity: 1
+        });
+      }
+      updateCartUI();
+    }
+
+    // Remove from cart
+    function removeFromCart(itemName) {
+      cart = cart.filter(item => item.name !== itemName);
+      updateCartUI();
+    }
+
+    // Update quantity
+    function updateQuantity(itemName, quantity) {
+      const item = cart.find(item => item.name === itemName);
+      if (item) {
+        item.quantity = Math.max(0, quantity);
+        if (item.quantity === 0) {
+          removeFromCart(itemName);
+        } else {
+          updateCartUI();
+        }
       }
     }
 
+    // Update cart UI
     function updateCartUI() {
-      const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-      document.getElementById('cart-count').textContent = count;
-      
-      const cartItems = document.getElementById('cart-items');
-      const cartEmpty = document.getElementById('cart-empty');
-      const cartFooter = document.getElementById('cart-footer');
-      
+      const cartCount = document.getElementById('cart-count');
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      cartCount.textContent = totalItems;
+
+      const cartItemsContainer = document.getElementById('cart-items');
+      const emptyCart = document.getElementById('empty-cart');
+
       if (cart.length === 0) {
-        cartEmpty.classList.remove('hidden');
-        cartFooter.classList.add('hidden');
-        cartItems.innerHTML = '';
+        cartItemsContainer.innerHTML = '';
+        emptyCart.classList.remove('hidden');
       } else {
-        cartEmpty.classList.add('hidden');
-        cartFooter.classList.remove('hidden');
-        
-        const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-        document.getElementById('cart-total').textContent = formatPrice(total);
-        
-        cartItems.innerHTML = cart.map(item => `
-          <div class="flex items-center gap-4 p-4 rounded-xl" style="background: var(--color-bg);">
-            <span class="text-3xl">${item.icon}</span>
-            <div class="flex-1">
-              <h4 class="font-semibold" style="color: var(--color-text);">${item.name}</h4>
-              <p class="text-sm" style="color: var(--color-primary);">${formatPrice(item.price)}</p>
+        emptyCart.classList.add('hidden');
+        cartItemsContainer.innerHTML = cart.map(item => `
+          <div class="flex items-center justify-between bg-[#0f0906] p-4 rounded-xl border border-[#8b5a2b]/30">
+            <div class="flex items-center gap-4 flex-1">
+              <span class="text-3xl">${item.emoji}</span>
+              <div class="flex-1">
+                <p class="text-[#f5ebe0] font-semibold">${item.name}</p>
+                <p class="text-[#a89080] text-sm">₹${item.price} each</p>
+              </div>
             </div>
-            <div class="flex items-center gap-2">
-              <button onclick="updateCartQuantity('${item.id}', -1)" class="w-8 h-8 rounded-full flex items-center justify-center" style="background: var(--color-surface);">
-                <svg class="w-4 h-4" fill="var(--color-text)" viewBox="0 0 24 24"><path d="M19,13H5V11H19V13Z"/></svg>
-              </button>
-              <span class="w-8 text-center font-semibold" style="color: var(--color-text);">${item.quantity}</span>
-              <button onclick="updateCartQuantity('${item.id}', 1)" class="w-8 h-8 rounded-full flex items-center justify-center" style="background: var(--color-surface);">
-                <svg class="w-4 h-4" fill="var(--color-text)" viewBox="0 0 24 24"><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/></svg>
-              </button>
+            <div class="flex items-center gap-3">
+              <button onclick="updateQuantity('${item.name}', ${item.quantity - 1})" class="px-3 py-1 bg-[#2d1810] text-[#d4a574] rounded-lg hover:bg-[#d4a574] hover:text-[#1a0f0a]">−</button>
+              <span class="text-[#f5ebe0] font-bold w-8 text-center">${item.quantity}</span>
+              <button onclick="updateQuantity('${item.name}', ${item.quantity + 1})" class="px-3 py-1 bg-[#2d1810] text-[#d4a574] rounded-lg hover:bg-[#d4a574] hover:text-[#1a0f0a]">+</button>
+              <button onclick="removeFromCart('${item.name}')" class="ml-4 px-3 py-1 bg-red-900/30 text-red-400 rounded-lg hover:bg-red-900/60">✕</button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Update totals
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      const deliveryCharge = subtotal > 0 ? 50 : 0;
+      const total = subtotal + deliveryCharge;
+      document.getElementById('subtotal').textContent = `₹${subtotal}`;
+      document.getElementById('delivery-charge').textContent = `₹${deliveryCharge}`;
+      document.getElementById('total').textContent = `₹${total}`;
+    }
+
+    // Place order
+    async function placeOrder() {
+      const customerName = document.getElementById('customer-name').value.trim();
+      const customerPhone = document.getElementById('customer-phone').value.trim();
+
+      if (!customerName || !customerPhone || cart.length === 0) {
+        document.getElementById('order-error').classList.remove('hidden');
+        setTimeout(() => {
+          document.getElementById('order-error').classList.add('hidden');
+        }, 3000);
+        return;
+      }
+
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      const totalPrice = subtotal + 50;
+      const itemsList = cart.map(item => `${item.quantity}x ${item.name}`).join(', ');
+
+      const orderData = {
+        id: Date.now().toString(),
+        customer_name: customerName,
+        phone: customerPhone,
+        items: itemsList,
+        total_price: totalPrice,
+        status: 'Pending',
+        order_date: new Date().toISOString()
+      };
+
+      const placeOrderBtn = document.getElementById('place-order-btn');
+      const originalText = placeOrderBtn.textContent;
+      placeOrderBtn.textContent = 'Placing Order...';
+      placeOrderBtn.disabled = true;
+
+      const result = await window.dataSdk.create(orderData);
+
+      placeOrderBtn.textContent = originalText;
+      placeOrderBtn.disabled = false;
+
+      if (result.isOk) {
+        document.getElementById('order-success').classList.remove('hidden');
+        cart = [];
+        document.getElementById('customer-name').value = '';
+        document.getElementById('customer-phone').value = '';
+        updateCartUI();
+        setTimeout(() => {
+          document.getElementById('order-success').classList.add('hidden');
+          document.getElementById('cart-modal').classList.add('hidden');
+        }, 3000);
+      } else {
+        document.getElementById('order-error').classList.remove('hidden');
+        setTimeout(() => {
+          document.getElementById('order-error').classList.add('hidden');
+        }, 3000);
+      }
+    }
+
+    // Render orders list
+    function renderOrdersList(orders) {
+      const ordersList = document.getElementById('orders-list');
+      const emptyOrders = document.getElementById('empty-orders');
+
+      if (!orders || orders.length === 0) {
+        ordersList.innerHTML = '';
+        emptyOrders.classList.remove('hidden');
+      } else {
+        emptyOrders.classList.add('hidden');
+        ordersList.innerHTML = orders.map(order => `
+          <div class="bg-[#0f0906] p-4 rounded-xl border border-[#8b5a2b]/30">
+            <div class="flex justify-between items-start mb-3">
+              <div>
+                <p class="text-[#f5ebe0] font-bold">${order.customer_name}</p>
+                <p class="text-[#a89080] text-sm">📞 ${order.phone}</p>
+              </div>
+              <span class="px-3 py-1 ${order.status === 'Completed' ? 'bg-green-900/30 text-green-400' : 'bg-yellow-900/30 text-yellow-400'} rounded-full text-sm font-semibold">${order.status}</span>
+            </div>
+            <p class="text-[#a89080] text-sm mb-2"><strong>Items:</strong> ${order.items}</p>
+            <div class="flex justify-between items-center">
+              <p class="text-[#f5ebe0]"><strong>Total:</strong> ₹${order.total_price}</p>
+              <p class="text-[#a89080] text-xs">${new Date(order.order_date).toLocaleDateString()}</p>
             </div>
           </div>
         `).join('');
       }
     }
 
-    // Navigation
+    // Cart modal events
+    document.getElementById('cart-btn').addEventListener('click', () => {
+      document.getElementById('cart-modal').classList.remove('hidden');
+    });
+
+    document.getElementById('close-cart').addEventListener('click', () => {
+      document.getElementById('cart-modal').classList.add('hidden');
+    });
+
+    document.getElementById('clear-cart-btn').addEventListener('click', () => {
+      cart = [];
+      updateCartUI();
+    });
+
+    document.getElementById('place-order-btn').addEventListener('click', placeOrder);
+
+    // Orders modal events
+    document.getElementById('close-orders').addEventListener('click', () => {
+      document.getElementById('orders-modal').classList.add('hidden');
+    });
+
+    // Add to cart buttons
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('add-to-cart-btn')) {
+        const itemName = e.target.dataset.itemName;
+        const itemPrice = e.target.dataset.itemPrice;
+        const itemEmoji = e.target.dataset.itemEmoji;
+        addToCart(itemName, itemPrice, itemEmoji);
+      }
+    });
+
+    // Smooth scrolling for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
-          target.scrollIntoView({ behavior: 'smooth' });
-          // Update active nav
-          document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-          this.classList.add('active');
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          document.getElementById('mobile-menu').classList.add('hidden');
         }
-        // Close mobile menu
-        document.getElementById('mobile-menu').classList.add('hidden');
       });
     });
 
-    // Navbar scroll effect
-    window.addEventListener('scroll', () => {
-      const navbar = document.getElementById('navbar');
-      if (window.scrollY > 100) {
-        navbar.style.background = 'var(--color-bg)';
-        navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
-      } else {
-        navbar.style.background = 'transparent';
-        navbar.style.boxShadow = 'none';
-      }
-    });
+    // Element SDK integration
+    async function onConfigChange(config) {
+      const shopName = config.shop_name || defaultConfig.shop_name;
+      const tagline = config.tagline || defaultConfig.tagline;
+      const aboutText = config.about_text || defaultConfig.about_text;
+      const address = config.address || defaultConfig.address;
+      const phone = config.phone || defaultConfig.phone;
 
-    // Mobile Menu
-    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
-      document.getElementById('mobile-menu').classList.remove('hidden');
-    });
+      document.getElementById('nav-shop-name').textContent = shopName;
+      document.getElementById('hero-shop-name').innerHTML = shopName.replace(' ', '<br><span class="text-[#d4a574]">') + '</span>';
+      document.getElementById('footer-shop-name').textContent = shopName;
+      document.getElementById('hero-tagline').textContent = tagline;
+      document.getElementById('about-text').textContent = aboutText;
+      document.getElementById('contact-address').innerHTML = address.replace(/\n/g, '<br>');
+      document.getElementById('contact-phone').textContent = phone;
+    }
 
-    document.getElementById('mobile-menu-close').addEventListener('click', () => {
-      document.getElementById('mobile-menu').classList.add('hidden');
-    });
-
-    // Cart Modal
-    document.getElementById('cart-btn').addEventListener('click', () => {
-      document.getElementById('cart-modal').classList.remove('hidden');
-    });
-
-    document.getElementById('cart-close').addEventListener('click', () => {
-      document.getElementById('cart-modal').classList.add('hidden');
-    });
-
-    document.getElementById('cart-backdrop').addEventListener('click', () => {
-      document.getElementById('cart-modal').classList.add('hidden');
-    });
-
-    document.getElementById('checkout-btn').addEventListener('click', () => {
-      showToast('Demo checkout - Order placed!');
-      cart = [];
-      updateCartUI();
-      document.getElementById('cart-modal').classList.add('hidden');
-    });
-
-    // Login Modal
-    document.getElementById('login-btn').addEventListener('click', () => {
-      if (isLoggedIn) {
-        isLoggedIn = false;
-        currentUser = null;
-        document.getElementById('login-btn').textContent = 'Sign In';
-        showToast('Signed out successfully');
-      } else {
-        document.getElementById('login-modal').classList.remove('hidden');
-      }
-    });
-
-    document.getElementById('login-close').addEventListener('click', () => {
-      document.getElementById('login-modal').classList.add('hidden');
-    });
-
-    document.getElementById('login-backdrop').addEventListener('click', () => {
-      document.getElementById('login-modal').classList.add('hidden');
-    });
-
-    document.getElementById('login-form').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const email = document.getElementById('login-email').value;
-      
-      isLoggedIn = true;
-      currentUser = { email };
-      document.getElementById('login-btn').textContent = 'Sign Out';
-      document.getElementById('login-modal').classList.add('hidden');
-      showToast('Welcome back!');
-      
-      // Clear form
-      document.getElementById('login-form').reset();
-    });
-
-    // Reservation Form
-    document.getElementById('reservation-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      const submitBtn = document.getElementById('reservation-submit');
-      const btnText = document.getElementById('reservation-btn-text');
-      const spinner = document.getElementById('reservation-spinner');
-      
-      // Show loading state
-      submitBtn.disabled = true;
-      btnText.textContent = 'Booking...';
-      spinner.classList.remove('hidden');
-      
-      const reservationData = {
-        id: Date.now().toString(),
-        type: 'reservation',
-        name: document.getElementById('res-name').value,
-        email: document.getElementById('res-email').value,
-        phone: document.getElementById('res-phone').value,
-        date: document.getElementById('res-date').value,
-        time: document.getElementById('res-time').value,
-        guests: parseInt(document.getElementById('res-guests').value),
-        message: document.getElementById('res-message').value,
-        createdAt: new Date().toISOString()
-      };
-      
-      try {
-        // Check limit
-        if (reservations.length >= 999) {
-          showToast('Reservation limit reached. Please contact us directly.', false);
-          return;
-        }
-        
-        if (window.dataSdk) {
-          const result = await window.dataSdk.create(reservationData);
-          if (result.isOk) {
-            showToast('Reservation confirmed! We\'ll see you soon.');
-            document.getElementById('reservation-form').reset();
-          } else {
-            showToast('Something went wrong. Please try again.', false);
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.background_color || defaultConfig.background_color,
+            set: (value) => {
+              config.background_color = value;
+              window.elementSdk.setConfig({ background_color: value });
+            }
+          },
+          {
+            get: () => config.surface_color || defaultConfig.surface_color,
+            set: (value) => {
+              config.surface_color = value;
+              window.elementSdk.setConfig({ surface_color: value });
+            }
+          },
+          {
+            get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => {
+              config.text_color = value;
+              window.elementSdk.setConfig({ text_color: value });
+            }
+          },
+          {
+            get: () => config.primary_action_color || defaultConfig.primary_action_color,
+            set: (value) => {
+              config.primary_action_color = value;
+              window.elementSdk.setConfig({ primary_action_color: value });
+            }
+          },
+          {
+            get: () => config.secondary_color || defaultConfig.secondary_color,
+            set: (value) => {
+              config.secondary_color = value;
+              window.elementSdk.setConfig({ secondary_color: value });
+            }
           }
-        } else {
-          // Fallback for demo
-          showToast('Reservation confirmed! We\'ll see you soon.');
-          document.getElementById('reservation-form').reset();
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => config.font_family || defaultConfig.font_family,
+          set: (value) => {
+            config.font_family = value;
+            window.elementSdk.setConfig({ font_family: value });
+          }
+        },
+        fontSizeable: {
+          get: () => config.font_size || defaultConfig.font_size,
+          set: (value) => {
+            config.font_size = value;
+            window.elementSdk.setConfig({ font_size: value });
+          }
         }
-      } catch (error) {
-        showToast('Something went wrong. Please try again.', false);
-      } finally {
-        // Reset button state
-        submitBtn.disabled = false;
-        btnText.textContent = 'Reserve Now';
-        spinner.classList.add('hidden');
-      }
-    });
+      };
+    }
 
-    // Set minimum date for reservation
-    const dateInput = document.getElementById('res-date');
-    const today = new Date().toISOString().split('T')[0];
-    dateInput.setAttribute('min', today);
-    dateInput.value = today;
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ["shop_name", config.shop_name || defaultConfig.shop_name],
+        ["tagline", config.tagline || defaultConfig.tagline],
+        ["about_text", config.about_text || defaultConfig.about_text],
+        ["address", config.address || defaultConfig.address],
+        ["phone", config.phone || defaultConfig.phone]
+      ]);
+    }
 
-    // Menu Category Buttons
-    document.querySelectorAll('.menu-category-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        switchCategory(btn.dataset.category);
+    // Initialize everything
+    renderMenu('chai');
+    initializeMenuTabs();
+    initializeDataSDK();
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
       });
-    });
-
-    // Initialize
-    renderMenu('coffee');
-    updateCartUI();
+    }
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d247df0621ba3b5',t:'MTc3MTgyNjMxMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d312a8c201090b5',t:'MTc3MTk1OTIxMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
